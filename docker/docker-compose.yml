@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  spring:
+    container_name: spring
+    hostname: spring
+    # 실행되는 컨텍스트 및 도커파일 지정
+    build:
+      context: ../
+      dockerfile: "./docker/dockerfile/spring.dockerfile"
+    ports:
+      - "8081:8080"
+    restart: "always"
+    networks:
+      - backend
+
+# 브리지 네트워크는 도커가 제공하는 네트워크 드라이버 중 하나로, 가상
+# 인터페이스를 통해 컨테이너들을 연결한다.
+networks:
+  backend:
+    external: true

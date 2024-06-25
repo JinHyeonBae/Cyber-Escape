@@ -1,0 +1,6 @@
+[core]
+    remote = gdrive
+['remote "storage"']
+    url = gdrive://18oHuyFNnnEOjrzwnccxzYhkx9ncd7f23/cyberescape
+['remote "gdrive"']
+    url = gdrive://18oHuyFNnnEOjrzwnccxzYhkx9ncd7f23
