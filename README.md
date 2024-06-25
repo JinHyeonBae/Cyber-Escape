@@ -100,7 +100,7 @@
 
 ## 🌐 System Architecture
 
-![아키텍처5-removebg-preview](/uploads/4392516a24d986e94decb026ac8f8e85/아키텍처5-removebg-preview.png)
+![아키텍처5-removebg-preview](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/0cf6adc5-b5ce-4e2f-9264-d2a1fa8dc442)
 
 <br>
 
@@ -108,8 +108,7 @@
 
 ## 💾 ERD
 
-![erd](/uploads/9beb06a336a9f53906ee193db6c7039b/erd.PNG)
-
+![erd](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/907027ed-2e12-46f6-beae-e8b7caf19f60)
 <br>
 
 <a name="intro"></a>
@@ -126,40 +125,35 @@
 
 - #### 메인 페이지
 
-  ![메인](/uploads/5145c6b473d93eb011807604ba753a17/메인.PNG)
+![main](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/1403cfaf-b676-44b3-9a52-1c8f903c57fd)
 
 - #### 테마 선택 페이지
 
-  ![테마선택](/uploads/2adef02733af322f3237c0be4e02b21b/테마선택.PNG)
+![themaSelect](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/e4632126-1a66-402a-a95e-97934b3a6009)
 
 - #### 멀티 모드 시 게임 참여 선택지
 
-  ![멀티_모드](/uploads/891bf2b51ed97b2b0d061600c119a0a6/멀티_모드.PNG)
+![multimode](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/14d7879c-b9d4-49d7-8973-6d3ef34e3c64)
 
 - #### 게임방 생성
-
-  ![방_생성](/uploads/dd7adce2ed9a7530e17524ff5ffe92d5/방_생성.PNG)
+- 
+![room_create](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/783fe077-5228-4213-b7fa-cb950b9d8fa1)
 
 - #### 게임방 리스트
-
-  ![방리스트](/uploads/6221c59962161c16f0d17a7ac378f773/방리스트.PNG)
+![roomList](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/b1af1d6e-153c-48fb-97a3-c7648c9b9080)
 
 - #### 게임 대기방 페이지
-
-  ![게임대기방](/uploads/62ec194fee17351cc1dbce5266d378e6/게임대기방.PNG)
+![gameWaitRoom](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/b4a0e7a0-b2f5-4b27-b169-4d5cba1f9f2a)
 
 - #### 랭킹 페이지
-
-  ![랭킹_페이지](/uploads/22f9cd8fbee3966fae622667d76f1452/랭킹_페이지.PNG)
+![ranking](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/284d027e-adbc-42cc-b835-bba157b01ca9)
 
 - #### 게임 방법 설명 페이지
-
-  ![게임설명](/uploads/5e6c7510dce3255a68d3fb95bca89970/게임설명.PNG)
+![gameDescription](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/f44609b4-b594-4f50-93d1-8e1b63002e52)
 
 - #### 로그인 / 회원가입 페이지
-
-  ![로그인](/uploads/6b6901ba628eda6e1dc33513500f10de/로그인.PNG)
-  ![회원가입](/uploads/8bc198a242e9acb35be95875a9a7cf24/회원가입.PNG)
+![login](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/66aefbcb-159b-482f-8a09-a6ccb3cdd990)
+![signup](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/cd15466b-ecf1-4d2f-af3f-ee6471053f09)
 
 <br>
 
@@ -191,7 +185,7 @@
 - 백엔드 팀장
 - 테마별 퀴즈 서비스 구현
 - 알림 서비스 구현
-- 인게임 내부 음성 채팅 구현
+- 인게임 내부 음성 채팅 구현 (openvidu)
 - 친구 서비스 구현
 - 홈페이지 리소스 파일 서버(nginx) 구축
 
@@ -309,8 +303,6 @@
 <br>
 
 ## Technology
-
-### Websocket
 
 ### nginx
 
