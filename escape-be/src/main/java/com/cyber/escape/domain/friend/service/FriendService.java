@@ -53,6 +53,7 @@ public class FriendService {
         User senderInfo = userRepository.findUserByUuid(currentUserUuid)
                 .orElseThrow(() -> new FriendException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
         User receiverInfo = userRepository.findUserByUuid(dto.getToUserUuid())
+
                 .orElseThrow(() -> new FriendException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
 
         Optional<Friend> friend = friendRepository.getFriend(currentUserUuid, dto.getToUserUuid());

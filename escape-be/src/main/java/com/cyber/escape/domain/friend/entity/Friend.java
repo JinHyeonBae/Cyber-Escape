@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @DynamicUpdate
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name="friend")
