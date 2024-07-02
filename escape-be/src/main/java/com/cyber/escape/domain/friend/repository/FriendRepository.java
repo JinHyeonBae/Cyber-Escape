@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FriendRepository extends JpaRepository<Friend, String> {
+public interface FriendRepository extends JpaRepository<Friend, String>, FriendRepositoryCustom {
     @Query(value = "SELECT f.* " +
         "FROM friend f " +
         "JOIN user u ON f.from_user_id = u.id " +

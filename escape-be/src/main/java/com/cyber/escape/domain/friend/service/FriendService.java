@@ -29,16 +29,14 @@ public class FriendService {
     private final UserRepository userRepository;
     private final FriendRepository friendRepository;
     private final NotificationService notificationService;
-    private final FriendRepositoryImpl friendRepositoryImpl;
     private final UserUtil userUtil;
 
     private final IdFinder idFinder;
 
-    public FriendService(UserRepository userRepository, FriendRepository friendRepository, NotificationService notificationService, FriendRepositoryImpl friendRepositoryImpl, UserUtil userUtil, IdFinder idFinder) {
+    public FriendService(UserRepository userRepository, FriendRepository friendRepository, NotificationService notificationService, UserUtil userUtil, IdFinder idFinder) {
         this.userRepository = userRepository;
         this.friendRepository = friendRepository;
         this.notificationService = notificationService;
-        this.friendRepositoryImpl = friendRepositoryImpl;
         this.userUtil = userUtil;
         this.idFinder = idFinder;
     }
@@ -93,7 +91,7 @@ public class FriendService {
         int pageSize = 10;
         int startIndex = (pageNumber - 1) * pageSize;
 
-        List<FriendDto.FriendListResponse> friendList = friendRepositoryImpl.findFriendList(userId);
+        List<FriendDto.FriendListResponse> friendList = friendRepository.findFriendList(userId);
 
         int endIndex = Math.min(startIndex + pageSize, friendList.size());
 
@@ -108,7 +106,7 @@ public class FriendService {
         Long currentUserId = idFinder.findIdByUuid(userUtil.getLoginUserUuid(), User.class);
         Long friendId = idFinder.findIdByUuid(req.get("friendUuid"), User.class);
 
-        friendRepositoryImpl.removeFriendAndInsertLogHistory(currentUserId, friendId);
+        friendRepository.removeFriendAndInsertLogHistory(currentUserId, friendId);
 
         return "";
     }

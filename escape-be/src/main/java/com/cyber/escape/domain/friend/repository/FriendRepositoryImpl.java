@@ -22,7 +22,7 @@ import java.util.List;
 
 @Repository
 @Slf4j
-public class FriendRepositoryImpl {
+public class FriendRepositoryImpl implements FriendRepositoryCustom{
 
     private final JPAQueryFactory jpaQueryFactory;
     private final EntityManager entityManager;
