@@ -32,6 +32,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			findUser.getLoginId(),
 			findUser.getPassword(),
 			new ArrayList<>()
-		).toUser();
+		).receiver();
 	}
 }

@@ -76,7 +76,7 @@ public class UserDto {
     @Getter
     @Builder
     public static class SearchNicknameRequest{
-        private String fromUserUuid;
+        private String senderUuid;
         private String nickname;
     }
 

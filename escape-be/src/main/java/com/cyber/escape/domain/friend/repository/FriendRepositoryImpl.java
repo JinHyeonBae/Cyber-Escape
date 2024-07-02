@@ -38,16 +38,16 @@ public class FriendRepositoryImpl {
         QFriend other = QFriend.friend;
 
         List<Tuple> list = jpaQueryFactory
-                .select(friend.id, friend.toUser.uuid, friend.toUser.nickname)
+                .select(friend.id, friend.receiver.uuid, friend.receiver.nickname)
                 .from(friend)
-                .where(friend.fromUser.id.eq(senderId)
+                .where(friend.sender.id.eq(senderId)
                         .and(
                                 // 서브쿼리: personA를 receiver로 가지고 있는 모든 sender를 찾습니다.
-                                friend.toUser.in(
+                                friend.receiver.in(
                                         JPAExpressions
-                                                .select(other.fromUser)
+                                                .select(other.sender)
                                                 .from(other)
-                                                .where(other.toUser.id.eq(senderId))
+                                                .where(other.receiver.id.eq(senderId))
                                 )
                         )
                 )
@@ -60,16 +60,16 @@ public class FriendRepositoryImpl {
 
         // 더미데이터 잘못 넣었네
         return jpaQueryFactory
-                .select(new QFriendDto_FriendListResponse(friend.toUser.uuid, friend.toUser.nickname, friend.toUser.profileUrl))
+                .select(new QFriendDto_FriendListResponse(friend.receiver.uuid, friend.receiver.nickname, friend.receiver.profileUrl))
                 .from(friend)
-                .where(friend.fromUser.id.eq(senderId)
+                .where(friend.sender.id.eq(senderId)
                         .and(
                                 // 서브쿼리: personA를 receiver로 가지고 있는 모든 sender를 찾습니다.
-                                friend.toUser.in(
+                                friend.receiver.in(
                                         JPAExpressions
-                                                .select(other.fromUser)
+                                                .select(other.sender)
                                                 .from(other)
-                                                .where(other.toUser.id.eq(senderId))
+                                                .where(other.receiver.id.eq(senderId))
                                 )
                         )
                 )
@@ -91,8 +91,8 @@ public class FriendRepositoryImpl {
             long deletedCount = jpaQueryFactory
                     .delete(friend)
                     .where(
-                            friend.fromUser.id.eq(currentUserId).and(friend.toUser.id.eq(friendId))
-                                    .or(friend.fromUser.id.eq(friendId).and(friend.toUser.id.eq(currentUserId)))
+                            friend.sender.id.eq(currentUserId).and(friend.receiver.id.eq(friendId))
+                                    .or(friend.sender.id.eq(friendId).and(friend.receiver.id.eq(currentUserId)))
                     )
                     .execute();
             log.info("Deleted {} friend relationships", deletedCount);

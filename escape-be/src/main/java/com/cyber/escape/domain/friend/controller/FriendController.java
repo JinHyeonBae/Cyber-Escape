@@ -16,9 +16,12 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/friend")
-@RequiredArgsConstructor
 public class FriendController {
     private final FriendService friendService;
+
+    public FriendController(FriendService friendService) {
+        this.friendService = friendService;
+    }
 
 
     @PostMapping("/acceptance")

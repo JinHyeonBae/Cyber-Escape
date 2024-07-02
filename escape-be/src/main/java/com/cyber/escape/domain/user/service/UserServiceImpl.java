@@ -51,10 +51,10 @@ public class UserServiceImpl implements UserService {
         List<UserDto.SearchNicknameResponse> userSearchList = new ArrayList<>();
 
         // 검색 결과
-        List<User> toUser = userRepository.findByNicknameContainingIgnoreCase(dto.getNickname());
+        List<User> receiver = userRepository.findByNicknameContainingIgnoreCase(dto.getNickname());
         String currentUserUuid = userUtil.getLoginUserUuid();
 
-        for(User user : toUser){
+        for(User user : receiver){
             log.info("nickname : {}, loginId : {}", user.getNickname(), user.getLoginId());
             // 닉네임을 가진 유저와 현재 내가 친구인지를 확인한다.
             Optional<Friend> friend = friendRepository.getFriend(currentUserUuid, user.getUuid());

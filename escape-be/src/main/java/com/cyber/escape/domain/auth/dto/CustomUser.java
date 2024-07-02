@@ -14,7 +14,7 @@ public class CustomUser extends User {
 		super(username, password, authorities);
 	}
 
-	public User toUser() {
+	public User receiver() {
 		return this;
 	}
 }

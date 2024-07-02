@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class FriendService {
     private final UserRepository userRepository;
@@ -35,6 +34,15 @@ public class FriendService {
 
     private final IdFinder idFinder;
 
+    public FriendService(UserRepository userRepository, FriendRepository friendRepository, NotificationService notificationService, FriendRepositoryImpl friendRepositoryImpl, UserUtil userUtil, IdFinder idFinder) {
+        this.userRepository = userRepository;
+        this.friendRepository = friendRepository;
+        this.notificationService = notificationService;
+        this.friendRepositoryImpl = friendRepositoryImpl;
+        this.userUtil = userUtil;
+        this.idFinder = idFinder;
+    }
+
     public void makeFriend(FriendDto.FriendRelationRequest dto){
         String currentUserUuid = userUtil.getLoginUserUuid();
 
@@ -42,9 +50,9 @@ public class FriendService {
             throw new FriendException(ExceptionCodeSet.NO_SELF_FRIEND);
 
         log.info("친구 추가하려는 유저의 uuid : {}", dto.getToUserUuid());
-        User fromUser = userRepository.findUserByUuid(currentUserUuid)
+        User senderInfo = userRepository.findUserByUuid(currentUserUuid)
                 .orElseThrow(() -> new FriendException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
-        User toUser = userRepository.findUserByUuid(dto.getToUserUuid())
+        User receiverInfo = userRepository.findUserByUuid(dto.getToUserUuid())
                 .orElseThrow(() -> new FriendException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
 
         Optional<Friend> friend = friendRepository.getFriend(currentUserUuid, dto.getToUserUuid());
@@ -53,11 +61,19 @@ public class FriendService {
             throw new FriendException(ExceptionCodeSet.ALREADY_FRIEND);
         }
 
-        Friend fromUserToUser = new Friend(fromUser, toUser);
-        Friend toUserFromUser = new Friend(toUser, fromUser);
+        Friend sender = Friend
+                        .builder()
+                        .sender(senderInfo)
+                        .receiver(receiverInfo)
+                        .build();
+        Friend receiver = Friend
+                        .builder()
+                        .sender(receiverInfo)
+                        .receiver(senderInfo)
+                        .build();
 
-        friendRepository.save(fromUserToUser);
-        friendRepository.save(toUserFromUser);
+        friendRepository.save(sender);
+        friendRepository.save(receiver);
     }
 
     public String sendToRequest(FriendDto.FriendRequest req){
@@ -71,8 +87,8 @@ public class FriendService {
         String userUuid = userUtil.getLoginUserUuid();
         Long userId = idFinder.findIdByUuid(userUuid, User.class);
 
-
         List<FriendDto.FriendListResponse> friendListPerPages = new ArrayList<>();
+
         int pageSize = 10;
         int startIndex = (pageNumber - 1) * pageSize;
 

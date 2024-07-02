@@ -17,6 +17,7 @@ public class FriendDto {
         public FriendRelationRequest(String toUserUuid){
             this.toUserUuid = toUserUuid;
         }
+
     }
 
     @Getter
