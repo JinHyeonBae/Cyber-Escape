@@ -17,11 +17,12 @@ import java.time.LocalTime;
 @Builder
 @Table(name="friend")
 public class Friend extends BaseEntity {
+
     @ManyToOne
-    @JoinColumn(name = "from_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "from_user_id", referencedColumnName = "uuid")
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "to_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "to_user_id", referencedColumnName = "uuid")
     private User receiver;
 }

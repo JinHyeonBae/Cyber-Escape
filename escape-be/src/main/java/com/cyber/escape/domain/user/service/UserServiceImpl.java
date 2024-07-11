@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.global.common.enums.FileType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
         // 검색 결과
         List<User> receiver = userRepository.findByNicknameContainingIgnoreCase(dto.getNickname());
-        String currentUserUuid = userUtil.getLoginUserUuid();
+        UUID currentUserUuid = userUtil.getLoginUserUuid();
 
         for(User user : receiver){
             log.info("nickname : {}, loginId : {}", user.getNickname(), user.getLoginId());
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService {
             UserDto.SearchNicknameResponse result =
                     UserDto.SearchNicknameResponse.builder()
                     .nickname(user.getNickname())
-                    .userUuid(user.getUuid())
+                    .userUuid(user.getUuid().toString())
                     .profileUrl(user.getProfileUrl())
                     .relationship(relationship)
                     .build();
@@ -87,7 +89,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String changeNickname(UserDto.UpdateNicknameRequest dto){
 
-        String currentUserUuid = userUtil.getLoginUserUuid();
+        UUID currentUserUuid = userUtil.getLoginUserUuid();
         User user = userRepository.findUserByUuid(currentUserUuid)
                 .orElseThrow(() -> new RuntimeException("일치하는 사용자 없음"));
 

@@ -8,9 +8,10 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPAExpressions;
 
 import java.util.List;
+import java.util.UUID;
 
 // QueryDsl의 기능을 정의한 인터페이스
 public interface FriendRepositoryCustom {
-    List<FriendDto.FriendListResponse> findFriendList(Long senderId);
-    void removeFriendAndInsertLogHistory(Long currentUserId, Long friendId);
+    List<FriendDto.FriendListResponse> findFriendList(UUID uuid);
+    void removeFriendAndInsertLogHistory(UUID currentUserId, UUID friendId);
 }

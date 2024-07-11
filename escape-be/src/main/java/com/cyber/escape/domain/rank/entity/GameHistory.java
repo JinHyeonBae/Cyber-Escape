@@ -21,11 +21,11 @@ import java.time.LocalTime;
 public class GameHistory extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "uuid")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "thema_id", referencedColumnName = "id")
+    @JoinColumn(name = "thema_id", referencedColumnName = "uuid")
     private Thema thema;
 
     @Column(name="clear_time")

@@ -2,6 +2,7 @@ package com.cyber.escape.domain.auth.service.impl;
 
 import java.io.IOException;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +49,11 @@ public class AuthServiceImpl implements AuthService {
 
 		signupRequest.setInfo(encodedPassword, userUtil.randomNickname());
 
-		return userRepository.save(User.from(signupRequest)).getLoginId();
+		User user = User.from(signupRequest);
+
+		log.info("SIGN CHECK :: CREATED UUID : {}, UUID LENGTH : {}",  user.getUuid().toString(),  user.getUuid().toString().length());
+
+		return userRepository.save(user).getLoginId();
 	}
 
 	@Transactional

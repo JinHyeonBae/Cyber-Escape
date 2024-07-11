@@ -20,15 +20,15 @@ import java.time.LocalTime;
 @Table(name="ranking")
 public class Ranking extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "uuid")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "thema_id", referencedColumnName = "id")
+    @JoinColumn(name = "thema_id", referencedColumnName = "uuid")
     private Thema thema;
 
 //    @ManyToOne
-//    @JoinColumn(name = "ranking_id", referencedColumnName = "id")
+//    @JoinColumn(name = "ranking_id", referencedColumnName = "uuid")
 //    private  GameHistory gameHistory;
 
     @Column(name="best_time")

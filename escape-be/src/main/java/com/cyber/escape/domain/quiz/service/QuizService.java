@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.quiz.service;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.domain.quiz.data.QuizDataInRedis;
 import com.cyber.escape.domain.quiz.data.QuizDataInRedis.*;
 import com.cyber.escape.domain.quiz.dto.QuizAnswerDto;
@@ -35,16 +36,16 @@ public class QuizService {
     private final QuizRepository quizRepository;
     private final ThemaRepository themaRepository;
     private final FinalAnswerRepository finalAnswerRepository;
-    private final RedisTemplate<String, Map<String, QuizDataInRedis.MapQuizWithClueData>> mappedClueWithQuiz;
-    private final RedisTemplate<String, QuizDataInRedis.finalAnswerData> finalAnswerStore;
+    private final RedisTemplate<UUID, Map<UUID, QuizDataInRedis.MapQuizWithClueData>> mappedClueWithQuiz;
+    private final RedisTemplate<UUID, QuizDataInRedis.finalAnswerData> finalAnswerStore;
 //    private RedisTemplate<String, List<Boolean>> solvedQuiz;
     private final UserUtil userUtil;
     public QuizService(QuizRepository quizRepository,
                        FinalAnswerRepository finalAnswerRepository,
                        QuizMapper quizMapper,
                        IdFinder idFinder, ThemaRepository themaRepository,
-                       RedisTemplate<String, Map<String, QuizDataInRedis.MapQuizWithClueData>> mappedClueWithQuiz,
-                       RedisTemplate<String, QuizDataInRedis.finalAnswerData> finalAnswerStore, UserUtil userUtil) {
+                       RedisTemplate<UUID, Map<UUID, QuizDataInRedis.MapQuizWithClueData>> mappedClueWithQuiz,
+                       RedisTemplate<UUID, QuizDataInRedis.finalAnswerData> finalAnswerStore, UserUtil userUtil) {
 
         this.quizRepository = quizRepository;
         this.finalAnswerRepository = finalAnswerRepository;
@@ -61,7 +62,7 @@ public class QuizService {
     public List<QuizDto.QuizSubmissionResDto> getQuizzes(int category) throws QuizException{
         List<QuizDto.QuizSubmissionResDto> result = new ArrayList<>();
 
-        String userUuid = userUtil.getLoginUserUuid();
+        UUID userUuid = userUtil.getLoginUserUuid();
 
         List<Quiz> diff1 = quizRepository.getQuizzezByCategory(category, 1)
                 .orElseThrow(() -> new QuizException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
@@ -105,57 +106,59 @@ public class QuizService {
 
 
         public QuizAnswerDto.SubmitAnswerResDto getAnswer(QuizAnswerDto.SubmitAnswerReqDto req){
-        String userUuid = userUtil.getLoginUserUuid();
 
-        // 현재 제출한 퀴즈 데이터 불러오기
-        Quiz quiz = quizRepository.findByUuid(req.getQuizUuid())
-                .orElseThrow(() -> new QuizException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
+            UUID userUuid = userUtil.getLoginUserUuid();
+            UUID quizUuid = UuidUtil.stringToUUID(req.getQuizUuid());
 
-        // 올바르지 않은 quizuuid
-        if(quiz == null){
-            throw new QuizException(ExceptionCodeSet.BAD_REQUEST);
-        }
+            // 현재 제출한 퀴즈 데이터 불러오기
+            Quiz quiz = quizRepository.findByUuid(quizUuid)
+                    .orElseThrow(() -> new QuizException(ExceptionCodeSet.ENTITY_NOT_EXISTS));
 
-        String submitAnswer = req.getAnswer();
-        String realAnswer = quiz.getAnswer();
-
-        // 만일 답이 맞으면
-        if(realAnswer.equals(submitAnswer)){
-            log.info("answer : {}", realAnswer);
-
-            Map<String, QuizDataInRedis.MapQuizWithClueData> data = mappedClueWithQuiz.opsForValue().get(userUuid);
-
-            String finalUuid = data.get(quiz.getUuid()).getFinalUuid();
-            String finalAnswer = finalAnswerStore.opsForValue().get(finalUuid).getFinalAnswer();
-            String[] clues = makeClue(finalAnswer);
-
-            for(int i = 0; i < 3; i++){
-                log.info("clue : {}",clues[i]);
+            // 올바르지 않은 quizuuid
+            if(quiz == null){
+                throw new QuizException(ExceptionCodeSet.BAD_REQUEST);
             }
 
-            String clue = data.get(quiz.getUuid()).getClue();
-            // 정답의 어순을 위한 데이터
-            int order = data.get(quiz.getUuid()).getClueIdx();
-            return QuizAnswerDto.SubmitAnswerResDto
-                                .builder()
-                                .clue(clue)
-                                .order(order + 1)
-                                .isRight(true)
-                                .build();
-        }
+            String submitAnswer = req.getAnswer();
+            String realAnswer = quiz.getAnswer();
 
-        return QuizAnswerDto.SubmitAnswerResDto
-                .builder()
-                .clue("")
-                .order(-1)
-                .isRight(false)
-                .build();
+            // 만일 답이 맞으면
+            if(realAnswer.equals(submitAnswer)){
+                log.info("answer : {}", realAnswer);
+
+                Map<UUID, QuizDataInRedis.MapQuizWithClueData> data = mappedClueWithQuiz.opsForValue().get(userUuid);
+
+                UUID finalUuid = data.get(quiz.getUuid()).getFinalUuid();
+                String finalAnswer = finalAnswerStore.opsForValue().get(finalUuid).getFinalAnswer();
+                String[] clues = makeClue(finalAnswer);
+
+                for(int i = 0; i < 3; i++){
+                    log.info("clue : {}",clues[i]);
+                }
+
+                String clue = data.get(quiz.getUuid()).getClue();
+                // 정답의 어순을 위한 데이터
+                int order = data.get(quiz.getUuid()).getClueIdx();
+                return QuizAnswerDto.SubmitAnswerResDto
+                                    .builder()
+                                    .clue(clue)
+                                    .order(order + 1)
+                                    .isRight(true)
+                                    .build();
+            }
+
+            return QuizAnswerDto.SubmitAnswerResDto
+                    .builder()
+                    .clue("")
+                    .order(-1)
+                    .isRight(false)
+                    .build();
     }
 
-    public QuizDto.QuizHintResDto getHint(String quizUuid){
-        String userUuid = userUtil.getLoginUserUuid();
-
-        Map<String, QuizDataInRedis.MapQuizWithClueData> map = mappedClueWithQuiz.opsForValue().get(userUuid);
+    public QuizDto.QuizHintResDto getHint(String uuid){
+        UUID userUuid = userUtil.getLoginUserUuid();
+        UUID quizUuid = UuidUtil.stringToUUID(uuid);
+        Map<UUID, QuizDataInRedis.MapQuizWithClueData> map = mappedClueWithQuiz.opsForValue().get(userUuid);
 
         // quiz uuid로 데이터를 꺼낸다.
         QuizDataInRedis.MapQuizWithClueData data = map.get(quizUuid);
@@ -166,7 +169,7 @@ public class QuizService {
         }
 
         // redis에 힌트 사용 여부를 저장한다.
-        for(Map.Entry<String, QuizDataInRedis.MapQuizWithClueData> quizInfo : map.entrySet()){
+        for(Map.Entry<UUID, QuizDataInRedis.MapQuizWithClueData> quizInfo : map.entrySet()){
             MapQuizWithClueData clueData = quizInfo.getValue();
             clueData.setUsedHint(true);
         }
@@ -191,7 +194,7 @@ public class QuizService {
         String realAnswer = answerInfo.getFinalAnswer().replace(" ", "").trim();
 
         if(realAnswer.equals(submitAnswer)){
-            String userUuid = userUtil.getLoginUserUuid();
+            UUID userUuid = userUtil.getLoginUserUuid();
 
             // 레디스에서 유저가 풀던 문제 삭제
             mappedClueWithQuiz.delete(userUuid);
@@ -237,7 +240,7 @@ public class QuizService {
         return clue;
     }
 
-    private void storeAnswersToRedis(String userUuid, List<Quiz> quizList, FinalAnswer finalAnswer){
+    private void storeAnswersToRedis(UUID userUuid, List<Quiz> quizList, FinalAnswer finalAnswer){
 
         log.info("FINAL QUIZ UUID : {}", finalAnswer.getUuid());
         // answer를 단어별로 자른다.
@@ -251,7 +254,7 @@ public class QuizService {
         );
 
         // 퀴즈별 클루 정보를 저장하기 위한 레디스
-        Map<String, QuizDataInRedis.MapQuizWithClueData> map = new HashMap<>();
+        Map<UUID, QuizDataInRedis.MapQuizWithClueData> map = new HashMap<>();
 
         int idx = 0;
         for(Quiz quiz : quizList){

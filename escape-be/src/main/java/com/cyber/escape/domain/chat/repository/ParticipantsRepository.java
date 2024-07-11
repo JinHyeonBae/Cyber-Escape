@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ParticipantsRepository extends JpaRepository<Participants, Long> {
 
-    public Optional<Participants> findByUuid(String uuid);
+    public Optional<Participants> findByUuid(UUID uuid);
 
 }

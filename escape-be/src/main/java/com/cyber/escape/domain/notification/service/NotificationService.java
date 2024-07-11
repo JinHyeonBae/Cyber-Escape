@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.domain.notification.document.Notify;
 import com.cyber.escape.domain.notification.dto.NotifyDto;
 import com.cyber.escape.domain.notification.repository.EmitterRepositoryImpl;
@@ -46,7 +48,7 @@ public class NotificationService {
     // subscribe
     public SseEmitter subscribe(String lastEventId){
         try {
-            String userUuid = userUtil.getLoginUserUuid();
+            UUID userUuid = userUtil.getLoginUserUuid();
             log.info("NotificationService ============ start subscribe..");
             String id = userUuid + "_" + System.currentTimeMillis();
             log.info("NotificationService ============ id : {}, lastEventId: {}", id, lastEventId);
@@ -96,11 +98,11 @@ public class NotificationService {
     // 알림이 필요한 곳에서 이 함수를 호출하면 됩니다.
     // 이걸 불러봤자... 결국 subscribe에서만 되겠구나
     // subscribe 자체가 그냥 등록만 하는 거니까
-    public void send(String receiverUuid, String roomUuid, Notify.NotificationType notificationType, String content){
+    public void send(UUID receiverUuid, UUID roomUuid, Notify.NotificationType notificationType, String content){
         log.info("NotificationService ============= send() 시작");
 
         // 알림 내역 저장
-        String senderUuid = userUtil.getLoginUserUuid();
+        UUID senderUuid = userUtil.getLoginUserUuid();
 
         log.info("RECEIVER UUID : {}", receiverUuid);
         log.info("NOTIFYCATION : {}", notificationType);
@@ -110,7 +112,7 @@ public class NotificationService {
             // sender가 receiver에게 친구 요청을 보낸 적이 있는지를 판별
             log.info("::::::::::::::: 친구 요청입니다.");
             List<Notify> existNotification = notifyRepository.findBySenderUuidAndReceiverUuidAndNotificationTypeAndIsRead(senderUuid, receiverUuid, Notify.NotificationType.FRIEND, 'F');
-            sendNotification(receiverUuid, "", notificationType, content, senderUuid, existNotification);
+            sendNotification(receiverUuid, null, notificationType, content, senderUuid, existNotification);
         }
         // 게임 요청이 들어왔다면
         else {
@@ -123,7 +125,7 @@ public class NotificationService {
 
     }
 
-    private void sendNotification(String receiverUuid, String roomUuid, Notify.NotificationType notificationType, String content, String senderUuid, List<Notify> existNotification)
+    private void sendNotification(UUID receiverUuid, UUID roomUuid, Notify.NotificationType notificationType, String content, UUID senderUuid, List<Notify> existNotification)
     {
 
         // 게임의 경우 있어도, 최신의 것을
@@ -131,6 +133,7 @@ public class NotificationService {
             if (existNotification.isEmpty()) {
 
                 // roomUuid 자리는 비워 놓는다.
+                log.info("binary login uuid : " + (userUtil.getLoginUserUuid()));
                 User user = userRepository.findUserByUuid(userUtil.getLoginUserUuid()).orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND));
                 Notify notification = notifyRepository.save(createNotify(senderUuid, receiverUuid, user.getNickname(), user.getProfileUrl(), roomUuid, notificationType, content));
                 log.info("::::::::::::::::::::::::::::::::::  알림 요청 ");
@@ -166,8 +169,8 @@ public class NotificationService {
         }
     }
 
-    private Notify createNotify(String senderUuid, String receiverUuid, String nickname, String profileUrl,
-                                String roomUuid, Notify.NotificationType notificationType, String content) {
+    private Notify createNotify(UUID senderUuid, UUID receiverUuid, String nickname, String profileUrl,
+                                UUID roomUuid, Notify.NotificationType notificationType, String content) {
         // Todo : sender 있는 경우, 없는 경우 나누기
         return Notify.builder()
                 .senderUuid(senderUuid)
@@ -217,7 +220,7 @@ public class NotificationService {
 
     // 안 읽은 목록들 추출
     public List<Object> getNotifyList(){
-        String userUuid = userUtil.getLoginUserUuid();
+        UUID userUuid = userUtil.getLoginUserUuid();
         List<Notify> notifyList = notifyRepository.findByReceiverUuidAndIsReadOrderByCreatedAt(userUuid, 'F');
         List<Object> response = new ArrayList<>();
         boolean isFirst = false;

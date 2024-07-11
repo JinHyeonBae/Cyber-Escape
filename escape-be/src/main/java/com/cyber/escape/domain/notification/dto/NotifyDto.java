@@ -2,6 +2,7 @@ package com.cyber.escape.domain.notification.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.cyber.escape.domain.notification.document.Notify;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class NotifyDto {
     @Builder
     public static class FriendResponse {
         String id;
-        String senderUuid;
+        UUID senderUuid;
         String nickname;
         String content;
         String type;
@@ -67,7 +68,7 @@ public class NotifyDto {
     @Builder
     public static class GameResponse {
         String id;
-        String roomUuid;
+        UUID roomUuid;
         String nickname;
         String content;
         String type;

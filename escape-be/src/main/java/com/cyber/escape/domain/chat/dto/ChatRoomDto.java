@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class ChatRoomDto {
@@ -25,11 +26,11 @@ public class ChatRoomDto {
     @NoArgsConstructor(force = true)
 //    @AllArgsConstructor
     public static class CreateChatRoomResDto{
-        private String ChatRoomUuid;
+        private UUID ChatRoomUuid;
 
         @QueryProjection
         @Builder
-        public CreateChatRoomResDto(String chatRoomUuid){
+        public CreateChatRoomResDto(UUID chatRoomUuid){
             this.ChatRoomUuid = chatRoomUuid;
         }
     }
@@ -43,11 +44,11 @@ public class ChatRoomDto {
 
     @Getter
     public static class MyChatListDto{
-        private final String chatRoomUuid;
+        private final UUID chatRoomUuid;
         private final List<ParticipantDto.ParticipantsDto> participantsList;
 
         @QueryProjection
-        public MyChatListDto(String chatRoomUuid, List<ParticipantDto.ParticipantsDto> participantsList){
+        public MyChatListDto(UUID chatRoomUuid, List<ParticipantDto.ParticipantsDto> participantsList){
             this.chatRoomUuid = chatRoomUuid;
             this.participantsList = participantsList;
         }

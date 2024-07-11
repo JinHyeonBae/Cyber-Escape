@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.friend.repository;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.domain.friend.dto.FriendDto;
 import com.cyber.escape.domain.friend.dto.QFriendDto_FriendListResponse;
 import com.cyber.escape.domain.friend.entity.Friend;
@@ -19,6 +20,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Slf4j
@@ -32,67 +34,65 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
         this.entityManager = entityManager;
     }
 
-    public List<FriendDto.FriendListResponse> findFriendList(Long senderId){
+    public List<FriendDto.FriendListResponse> findFriendList(UUID uuid){
 
         QFriend friend = QFriend.friend;
         QFriend other = QFriend.friend;
 
-        List<Tuple> list = jpaQueryFactory
-                .select(friend.id, friend.receiver.uuid, friend.receiver.nickname)
-                .from(friend)
-                .where(friend.sender.id.eq(senderId)
-                        .and(
-                                // 서브쿼리: personA를 receiver로 가지고 있는 모든 sender를 찾습니다.
-                                friend.receiver.in(
-                                        JPAExpressions
-                                                .select(other.sender)
-                                                .from(other)
-                                                .where(other.receiver.id.eq(senderId))
-                                )
-                        )
-                )
-                .fetch();
 
-        log.info("================== friend information check");
-        for(Tuple l : list) {
-            log.info("id : {} , user uuid : {}, nickname : {}", l.get(0, Long.class), l.get(1, String.class), l.get(2, String.class));
-        }
 
-        // 더미데이터 잘못 넣었네
-        return jpaQueryFactory
+        List<FriendDto.FriendListResponse> result = jpaQueryFactory
                 .select(new QFriendDto_FriendListResponse(friend.receiver.uuid, friend.receiver.nickname, friend.receiver.profileUrl))
                 .from(friend)
-                .where(friend.sender.id.eq(senderId)
+                .where(friend.sender.uuid.eq(uuid)
                         .and(
-                                // 서브쿼리: personA를 receiver로 가지고 있는 모든 sender를 찾습니다.
                                 friend.receiver.in(
                                         JPAExpressions
                                                 .select(other.sender)
                                                 .from(other)
-                                                .where(other.receiver.id.eq(senderId))
+                                                .where(other.receiver.uuid.eq(uuid))
                                 )
                         )
                 )
                 .fetch();
+
+        String sql = jpaQueryFactory
+                .select(new QFriendDto_FriendListResponse(friend.receiver.uuid, friend.receiver.nickname, friend.receiver.profileUrl))
+                .from(friend)
+                .where(friend.sender.uuid.eq(uuid)
+                        .and(
+                                friend.receiver.in(
+                                        JPAExpressions
+                                                .select(other.sender)
+                                                .from(other)
+                                                .where(other.receiver.uuid.eq(uuid))
+                                )
+                        )
+                ).toString();
+
+        log.info("SQL : {}", sql);
+
+        // 더미데이터 잘못 넣었네
+        return result;
     }
 
     @Transactional
-    public void removeFriendAndInsertLogHistory(Long currentUserId, Long friendId){
+    public void removeFriendAndInsertLogHistory(UUID currentUserUuid, UUID friendUuid){
 
         QFriendDeleteHistory deleteHistory = QFriendDeleteHistory.friendDeleteHistory;
         QFriend friend = QFriend.friend;
 
-        User sender = entityManager.find(User.class, currentUserId);
-        User receiver = entityManager.find(User.class, friendId);
+        User sender = entityManager.find(User.class, currentUserUuid);
+        User receiver = entityManager.find(User.class, friendUuid);
 
         try {
             // 친구 리스트에서 삭제
-            log.info("Attempting to delete friend relationship between {} and {}", currentUserId, friendId);
+            log.info("Attempting to delete friend relationship between {} and {}", currentUserUuid, friendUuid);
             long deletedCount = jpaQueryFactory
                     .delete(friend)
                     .where(
-                            friend.sender.id.eq(currentUserId).and(friend.receiver.id.eq(friendId))
-                                    .or(friend.sender.id.eq(friendId).and(friend.receiver.id.eq(currentUserId)))
+                            friend.sender.uuid.eq(currentUserUuid).and(friend.receiver.uuid.eq(friendUuid))
+                                    .or(friend.sender.uuid.eq(friendUuid).and(friend.receiver.uuid.eq(currentUserUuid)))
                     )
                     .execute();
             log.info("Deleted {} friend relationships", deletedCount);
@@ -101,8 +101,8 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
             log.info("Logging delete history for sender {} and receiver {}", sender, receiver);
 
             entityManager.createNativeQuery("INSERT INTO friend_delete_history (from_user_id, to_user_id) VALUES (:sender, :receiver)")
-                    .setParameter("sender", currentUserId)
-                    .setParameter("receiver", friendId)
+                    .setParameter("sender", currentUserUuid)
+                    .setParameter("receiver", friendUuid)
                     .executeUpdate();
 
             log.info("Successfully logged delete history.");

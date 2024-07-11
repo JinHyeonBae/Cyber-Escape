@@ -1,6 +1,7 @@
 package com.cyber.escape.domain.room.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.cyber.escape.domain.room.entity.Room;
 import com.cyber.escape.domain.user.dto.UserDto;
@@ -64,11 +65,11 @@ public class RoomDto {
 	@Getter
 	public static class PostResponse {
 		private final String title;
-		private final String roomUuid;
-		private final String hostUuid;
+		private final UUID roomUuid;
+		private final UUID hostUuid;
 		private final int category;
 
-		public static PostResponse of(final String title, final String roomUuid, final String hostUuid, final int category) {
+		public static PostResponse of(final String title, final UUID roomUuid, final UUID hostUuid, final int category) {
 			return PostResponse.builder()
 				.title(title)
 				.roomUuid(roomUuid)
@@ -88,7 +89,7 @@ public class RoomDto {
 	@Builder
 	@Getter
 	public static class TimeResponse {
-		private final String roomUuid;
+		private final UUID roomUuid;
 		private final LocalDateTime startedAt;
 
 		public static TimeResponse from(final Room room){
@@ -104,8 +105,8 @@ public class RoomDto {
 	public static class InfoRequest {
 		private final String title;
 		private final String password;
-		private final String themaUuid;
-		private final String roomUuid;
+		private final UUID themaUuid;
+		private final UUID roomUuid;
 	}
 
 	@Builder
@@ -125,7 +126,7 @@ public class RoomDto {
 	@Builder
 	@Getter
 	public static class AcceptResponse{
-		private final String roomUuid;
+		private final UUID roomUuid;
 		private final String title;
 		private final int themaCategory;
 
@@ -150,7 +151,7 @@ public class RoomDto {
 		private final Long userId;
 		// private final Long created_user;
 		// private final Long updated_user;
-		private final String uuid;
+		private final UUID uuid;
 
 		@QueryProjection
 		public Response(
@@ -160,7 +161,7 @@ public class RoomDto {
 			final LocalDateTime startedAt,
 			final Long themaId,
 			final Long userId,
-			final String uuid
+			final UUID uuid
 		) {
 			this.title = title;
 			// this.password = password;

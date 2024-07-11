@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.chat.service;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.domain.chat.repository.ParticipantsRepository;
 import com.cyber.escape.domain.chat.repository.ParticipantsRepositoryImpl;
 import com.cyber.escape.domain.chat.entity.ChatRoom;
@@ -40,18 +41,19 @@ public class ChatRoomService {
 
     @Transactional
     public ChatRoomDto.CreateChatRoomResDto createChatRoom(ChatRoomDto.CreateChatRoomReqDto chatroomInfo)  throws ChatException{
-            String userUuid = userUtil.getLoginUserUuid();
-            String friendUuid = chatroomInfo.getUserUuid();
+            UUID userUuid = userUtil.getLoginUserUuid();
+            //UUID friendUuid = UUID.fromString(chatroomInfo.getUserUuid());
 
-            log.info("현재 들어온 user의 uuid : {}", friendUuid);
+            //log.info("현재 들어온 user의 uuid : {}", friendUuid);
 
-            List<String> uuidList = new ArrayList<>(Arrays.asList(userUuid, friendUuid));
+            List<String> uuidList = new ArrayList<>(Arrays.asList(userUuid.toString(), chatroomInfo.getUserUuid()));
 
             List<User> currentUsers = userRepository.findByUuids(uuidList).orElseThrow(
                     () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND));
 
             User createdRoomUser = currentUsers.get(0);
             User friendUser = currentUsers.get(1);
+
 
             // DB에서 현재 user들이 채팅방을 가지고 있는지를 찾는다.
             ChatRoom existChatRoom = participantsRepositoryImpl.findRoomInfoBelongto(createdRoomUser.getUuid(), friendUser.getUuid());
@@ -99,15 +101,17 @@ public class ChatRoomService {
 
     public String exitRoom(ChatRoomDto.ExitChatRoomReqDto req) throws ChatException{
         // 여기서 나가려는 유저가 진짜 채팅방에 있는 유저인지를 확인
-        participantsRepositoryImpl.existsByUserUuidAndChatRoomUuid(req.getExitUserUuid(), req.getChatRoomUuid())
+        UUID exitUserUuid = UUID.fromString(req.getExitUserUuid());
+        UUID chatRoomUuid = UUID.fromString(req.getChatRoomUuid());
+        participantsRepositoryImpl.existsByUserUuidAndChatRoomUuid(exitUserUuid, chatRoomUuid)
                         .orElseThrow(() -> new ChatException(ExceptionCodeSet.BAD_REQUEST));
 
-        participantsRepositoryImpl.exitRoom(req.getChatRoomUuid(), req.getExitUserUuid());
+        participantsRepositoryImpl.exitRoom(exitUserUuid, exitUserUuid);
         return "";
     }
 
     public List<ChatRoomDto.MyChatListDto> getMyChatList(){
-        String userUuid = userUtil.getLoginUserUuid();
+        UUID userUuid = userUtil.getLoginUserUuid();
         return participantsRepositoryImpl.getMyChatList(userUuid);
     }
 

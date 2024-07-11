@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
@@ -17,6 +18,6 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
                     + "WHERE t.category = :category AND q.difficulty = :difficulty", nativeQuery = true)
     public Optional<List<Quiz>> getQuizzezByCategory(int category, int difficulty);
 
-    public Optional<Quiz> findByUuid(String uuid);
+    public Optional<Quiz> findByUuid(UUID uuid);
 
 }

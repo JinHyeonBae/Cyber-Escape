@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.UUID;
+
 public class FriendDto {
     @Getter
     @Builder
@@ -25,20 +27,19 @@ public class FriendDto {
     @AllArgsConstructor
     public static class FriendRequest{
         // 친구를 맺고 싶은 친구의 uuid
-        private final String receiverUuid;
+        private final UUID receiverUuid;
         private final String notifyType;
     }
 
     @Getter
-    @Builder
     public static class FriendListResponse{
-        private String nickname;
-        private String friendUuid;
-        private String profile;
+        private final UUID friendUuid;
+        private final String nickname;
+        private final String profile;
 
         @Builder
         @QueryProjection
-        public FriendListResponse(String friendUuid, String nickname, String profile){
+        public FriendListResponse(UUID friendUuid, String nickname, String profile){
             this.friendUuid = friendUuid;
             this.nickname = nickname;
             this.profile = profile;

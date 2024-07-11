@@ -8,11 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface RankingRepository extends JpaRepository<Ranking, String> {
 
-    @Query("SELECT r FROM Ranking r JOIN Thema t ON r.thema.id = t.id WHERE t.category = :themaCategory AND r.user.uuid = :userUuid ORDER BY r.bestTime ASC")
-    Optional<Ranking> findByUserUuidAndThemaCategory(String userUuid, int themaCategory);
+    @Query("SELECT r FROM Ranking r JOIN Thema t ON r.thema.id = t.id WHERE t.category = :themaCategory AND r.user.uuid = :uuid ORDER BY r.bestTime ASC")
+    Optional<Ranking> findByUserUuidAndThemaCategory(UUID uuid, int themaCategory);
 //    @Query("SELECT r FROM Ranking r JOIN Thema t ON r.thema.id = t.id WHERE t.uuid = :themaUuid ORDER BY r.bestTime ASC")
 
     @Query(value = "SELECT u.nickname, r.best_time, t.category, u.profile_url " +
@@ -27,7 +28,7 @@ public interface RankingRepository extends JpaRepository<Ranking, String> {
             "FROM ranking r " +
             "JOIN user u ON r.user_id = u.id " +
             "JOIN thema t ON r.thema_id = t.id " +
-            "WHERE u.uuid = :userUuid AND t.category = :themaCategory ", nativeQuery = true)
-    Optional<Object> getUserRankings(@Param("userUuid") String userUuid, @Param("themaCategory") int themaCategory);
+            "WHERE u.uuid = :uuid AND t.category = :themaCategory ", nativeQuery = true)
+    Optional<Object> getUserRankings(@Param("uuid") UUID uuid, @Param("themaCategory") int themaCategory);
 
 }
