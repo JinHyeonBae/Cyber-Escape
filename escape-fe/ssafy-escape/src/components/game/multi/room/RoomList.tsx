@@ -55,7 +55,7 @@ const Room = ({ roomData }: any) => {
       <S.RoomBox onClick={enterRoom}>
         <Image
           src={
-            process.env.NEXT_PUBLIC_IMAGE_URL +
+            IMAGE_URL.RESOURCE +
             `/image/${roomData.category}emoticon.png`
           }
           alt="테마 이모티콘"

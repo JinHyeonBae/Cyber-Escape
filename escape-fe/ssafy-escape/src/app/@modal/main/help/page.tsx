@@ -2,6 +2,7 @@
 import styled from "styled-components"
 import HelpIcon from "@mui/icons-material/Help"
 import Image from "next/image"
+import IMAGE_URL from "@/constants/host"
 
 const Page = () => {
   return (
@@ -13,7 +14,7 @@ const Page = () => {
       <MainContainer>
         <ImgBox>
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_1.PNG"}
+            src={IMAGE_URL.RESOURCE + "/image/help/single_1.PNG"}
             alt=""
             width={700}
             height={450}
@@ -32,7 +33,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_2.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/single_2.PNG"
               }
               alt=""
               width={400}
@@ -42,7 +43,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_22.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/single_22.PNG"
               }
               alt=""
               width={400}
@@ -58,7 +59,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_3.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/single_3.PNG"
               }
               alt=""
               width={400}
@@ -68,7 +69,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/space_1.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/space_1.PNG"
               }
               alt=""
               width={400}
@@ -85,7 +86,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_5.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/single_5.PNG"
               }
               alt=""
               width={400}
@@ -95,7 +96,7 @@ const Page = () => {
           <ImgBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/single_6.PNG"
+                IMAGE_URL.RESOURCE + "/image/help/single_6.PNG"
               }
               alt=""
               width={400}
@@ -113,7 +114,7 @@ const Page = () => {
         </Text>
         <ImgBox>
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/help/multi_1.PNG"}
+            src={IMAGE_URL.RESOURCE + "/image/help/multi_1.PNG"}
             alt=""
             width={700}
             height={450}

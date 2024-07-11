@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 const CreepycreepyDoll = ({ solved }: SolvedObjectProps) => {
   const creepyDoll = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/horror_doll.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/horror_doll.glb",
     true,
   )
   useEffect(() => {

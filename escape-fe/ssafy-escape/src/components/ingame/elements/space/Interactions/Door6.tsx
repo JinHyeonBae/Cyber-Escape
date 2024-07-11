@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei"
 import { AnimationMixer } from "three"
 import DoorBox from "../../common/DoorBox"
 import * as THREE from "three"
+import IMAGE_URL from "@/constants/host"
 
 const Door6 = ({
   onAir,
@@ -14,8 +15,8 @@ const Door6 = ({
   setSubtitle,
 }: any) => {
   const { scene, animations } = useGLTF(
-    // process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door3.glb",
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door_06.glb",
+    // IMAGE_URL.RESOURCE + "/glb/door3.glb",
+    IMAGE_URL.RESOURCE + "/glb/door_06.glb",
     true,
   )
   const doorRef = useRef()
@@ -64,7 +65,7 @@ const Door6 = ({
 
   const handleClick = () => {
     const new_audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/door_open.mp3",
+      IMAGE_URL.RESOURCE + "/sound/door_open.mp3",
     )
     new_audio.play()
     setIsAnimationActivated(true)
@@ -75,7 +76,7 @@ const Door6 = ({
       if (onAir) return
       setOnAir(true)
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL +
+        IMAGE_URL.RESOURCE +
           "/dubbing/space/sequence/solve_engine.mp3",
       )
       audio.play()

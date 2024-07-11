@@ -54,7 +54,7 @@ const Start = ({ setSubtitle }: StartProps) => {
 
   const dub1 = () => {
     const new_audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + `/music/HorrorBgm.mp3`,
+      IMAGE_URL.RESOURCE + `/music/HorrorBgm.mp3`,
     )
     new_audio.play()
     new_audio.loop = true
@@ -84,7 +84,7 @@ const Start = ({ setSubtitle }: StartProps) => {
 
   const dub4 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/man_scream.mp3",
+      IMAGE_URL.RESOURCE + "/sound/man_scream.mp3",
     )
     audio.play()
     setTimeout(() => {

@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react"
 // 마지막 탈출하기 전 찾을 망치 랜덤 4곳 (시간 남으면 더 추가할 예정)
 const Hammer = ({ onClick, solved, setInteractNum }: ClickObjectProps) => {
   const hammer = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/hammer.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/hammer.glb",
     true,
   )
   const objectArr: [number, number, number][][] = [

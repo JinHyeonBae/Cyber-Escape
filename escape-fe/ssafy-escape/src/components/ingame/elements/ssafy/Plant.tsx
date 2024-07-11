@@ -1,9 +1,11 @@
 import { useGLTF } from "@react-three/drei"
 import { useEffect } from "react"
+import IMAGE_URL from "@/constants/host"
+
 
 const Plant = () => {
   const plant = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/ssafy2/plant.glb",
+    IMAGE_URL.RESOURCE + "/glb/ssafy2/plant.glb",
     true,
   )
 

@@ -1,5 +1,6 @@
 import { useTexture, useVideoTexture } from "@react-three/drei"
 import { Suspense } from "react"
+import IMAGE_URL from "@/constants/host"
 
 const Video2 = ({ url, position, rotation, scale }: any) => {
   return (
@@ -20,7 +21,7 @@ const VideoMaterial = ({ url }: any) => {
 export default Video2
 
 function FallbackMaterial() {
-  const fallbackURL = process.env.NEXT_PUBLIC_IMAGE_URL + "/image/Black.png"
+  const fallbackURL = IMAGE_URL.RESOURCE + "/image/Black.png"
   const texture = useTexture(fallbackURL)
   return <meshBasicMaterial map={texture} toneMapped={false} />
 }

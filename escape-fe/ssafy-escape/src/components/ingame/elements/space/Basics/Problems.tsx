@@ -4,6 +4,7 @@ import Problem2 from "../Interactions/Problem2"
 import Problem3 from "../Interactions/Problem3"
 import RotateBall from "./RotateBall"
 import getQuiz from "@/services/ingame/getQuiz"
+import IMAGE_URL from "@/constants/host"
 
 const Problems = ({
   onAir,
@@ -14,7 +15,7 @@ const Problems = ({
   setSubtitle,
   timePenalty,
 }: any) => {
-  const defaultURL = process.env.NEXT_PUBLIC_IMAGE_URL + "/image/1.png"
+  const defaultURL = IMAGE_URL.RESOURCE + "/image/1.png"
   const [url1, setUrl1] = useState(defaultURL)
   const [url2, setUrl2] = useState(defaultURL)
   const [url3, setUrl3] = useState(defaultURL)
@@ -45,7 +46,7 @@ const Problems = ({
 
   const system_rollback = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/system_restart.mp3",
     )
     audio.play()
@@ -67,7 +68,7 @@ const Problems = ({
 
       system_rollback()
       const new_audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/engine_up.mp3",
+        IMAGE_URL.RESOURCE + "/sound/engine_up.mp3",
       )
       new_audio.play()
       setOnAir(true)

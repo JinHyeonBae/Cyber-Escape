@@ -2,6 +2,7 @@ import { useGLTF } from "@react-three/drei"
 import { useEffect, useState } from "react"
 import { clone } from "three/examples/jsm/utils/SkeletonUtils"
 import { Object3D } from "three"
+import IMAGE_URL from "@/constants/host"
 
 const Notebook1 = ({
   onClick,
@@ -9,7 +10,7 @@ const Notebook1 = ({
   setInteractNum,
 }: ClickObjectProps) => {
   const gltf = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/ssafy/notebook.glb",
+    IMAGE_URL.RESOURCE + "/glb/ssafy/notebook.glb",
     true,
   )
   const notebook1Position: [number, number, number][] = [

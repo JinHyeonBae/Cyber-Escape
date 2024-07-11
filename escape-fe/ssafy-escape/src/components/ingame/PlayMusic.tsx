@@ -1,5 +1,6 @@
 import useIngameThemeStore from "@/stores/IngameTheme"
 import { useEffect, useState } from "react"
+import IMAGE_URL from "@/constants/host"
 
 // 유저의 화면 클릭 이후 음악이 재생됩니다.
 const PlayMusic = () => {
@@ -10,19 +11,19 @@ const PlayMusic = () => {
     const startMusic = () => {
       if (selectedTheme === 7) {
         audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL + "/music/SpeckInTime.mp3",
+          IMAGE_URL.RESOURCE + "/music/SpeckInTime.mp3",
         )
         audio.play()
         audio.loop = true
       } else if (selectedTheme === 1 || selectedTheme === 2) {
         const audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL + "/music/HorrorBgm.mp3",
+          IMAGE_URL.RESOURCE + "/music/HorrorBgm.mp3",
         )
         audio.play()
         audio.loop = true
       } else if (selectedTheme === 3) {
         audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL + "/music/HorrorBgm2.mp3",
+          IMAGE_URL.RESOURCE + "/music/HorrorBgm2.mp3",
         )
         audio.play()
         audio.loop = true

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useGLTF } from "@react-three/drei"
 import { Mesh } from "three"
+import IMAGE_URL from "@/constants/host"
 
 interface RoomProps {
   onLoaded: (isLoaded: boolean) => void
@@ -9,7 +10,7 @@ interface RoomProps {
 const RoomModel = ({ onLoaded }: RoomProps) => {
   const gltf = useGLTF(
     // "/glb/textureapply65.glb",
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/textureapply69.glb",
+    IMAGE_URL.RESOURCE + "/glb/textureapply69.glb",
     true,
   )
 

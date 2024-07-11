@@ -10,6 +10,8 @@ import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 
+import IMAGE_URL from "@/constants/host"
+
 interface CarouselProps {
   width?: number
   height?: number
@@ -23,20 +25,20 @@ const themeData: CardInfo[] = [
     time: "8분",
     content:
       "당신은 일과를 마치고 귀가하던 중 납치를 당해 정신을 잃었고, 눈을 떠보니 낯선 병실 안이었습니다. 간간히 정체불명의 비명소리가 들립니다. 이대로 있다가는 저 비명소리의 주인이 되고 말 거예요! 제한 시간 내에 병실에 숨겨져 있는 단서를 찾아 싸이코패스 과학자에게서 탈출해야 합니다.",
-    image: process.env.NEXT_PUBLIC_IMAGE_URL + "/image/1.png",
+    image: IMAGE_URL.RESOURCE + "/image/1.png",
   },
   {
     title: "SSAFY",
     time: "5분",
     content:
       "날씨도 좋은데 한강으로 도망가고 싶은 걸? 하지만, 오늘 풀어야 할 문제들을 모두 풀기 전에는 나갈 수 없다. 교육 프로님에게 들키기 전에 문제를 풀고 멀티캠퍼스를 탈출하라!",
-    image: process.env.NEXT_PUBLIC_IMAGE_URL + "/image/4.png",
+    image: IMAGE_URL.RESOURCE + "/image/4.png",
   },
   {
     title: "우주",
     time: "10분",
     content: "오희주의 걸작품 Spaceship! 우주선에서 탈출하라!",
-    image: process.env.NEXT_PUBLIC_IMAGE_URL + "/image/7.png",
+    image: IMAGE_URL.RESOURCE + "/image/7.png",
   },
 ]
 

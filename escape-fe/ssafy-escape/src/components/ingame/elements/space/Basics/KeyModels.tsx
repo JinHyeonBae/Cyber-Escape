@@ -10,7 +10,7 @@ interface KeyProps {
 }
 
 const KeyModels = ({ onClick, position, active, setInteractNum }: KeyProps) => {
-  const { scene } = useGLTF(process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/key.glb")
+  const { scene } = useGLTF(IMAGE_URL.RESOURCE + "/glb/key.glb")
 
   return (
     <>

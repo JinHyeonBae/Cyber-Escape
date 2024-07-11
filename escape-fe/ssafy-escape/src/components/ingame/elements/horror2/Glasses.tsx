@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 const Glasses = () => {
   const glasses = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/bloody_glasses.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/bloody_glasses.glb",
     true,
   )
   useEffect(() => {

@@ -9,11 +9,11 @@ interface PortraitProps {
 // 추후 중복 제거 리팩토링
 const Portrait = ({ twoMinLater, fiveMinLater }: PortraitProps) => {
   const portrait = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/before_portrait.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/before_portrait.glb",
     true,
   )
   const horrorPortrait = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/after_portrait.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/after_portrait.glb",
     true,
   )
 

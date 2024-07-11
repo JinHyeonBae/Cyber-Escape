@@ -133,7 +133,7 @@ const ThirdProblemModal = ({
       </div>
       <HintIconBox onClick={handleOpenModal}>
         <Image
-          src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/hint.png"}
+          src={IMAGE_URL.RESOURCE + "/image/hint.png"}
           alt="힌트 아이콘"
           width={35}
           height={35}

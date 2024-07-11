@@ -9,7 +9,7 @@ const Knob = ({
   setInteractNum,
 }: ClickObjectProps) => {
   const knob = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/knob.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/knob.glb",
     true,
   )
   const knobPosition: [number, number, number][] = [

@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useState, useEffect } from "react"
 import { MeshBasicMaterial, BoxGeometry } from "three"
 import Video2 from "./Video2"
+import IMAGE_URL from "@/constants/host"
 
 const Computer = ({
   onAir,
@@ -18,9 +19,9 @@ const Computer = ({
   const geometry = useMemo(() => new BoxGeometry(3, 3, 3), [])
   const temp_position = [-43.45, 4.86, -162.9]
 
-  const url1 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/error1.mp4"
-  const url2 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/loading.mp4"
-  const url3 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/system_operating.mp4"
+  const url1 = IMAGE_URL.RESOURCE + "/video/error1.mp4"
+  const url2 = IMAGE_URL.RESOURCE + "/video/loading.mp4"
+  const url3 = IMAGE_URL.RESOURCE + "/video/system_operating.mp4"
   const [currentUrl, setCurrentUrl] = useState(url1)
 
   const material = useMemo(
@@ -43,12 +44,12 @@ const Computer = ({
       setTimeout(() => {
         setCurrentUrl(url3)
         const audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/server_restore.mp3",
         )
         audio.play()
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/server_up.mp3",
+          IMAGE_URL.RESOURCE + "/sound/server_up.mp3",
         )
         new_audio.play()
         setSubtitle("서버실이 재가동되었습니다.")
@@ -69,7 +70,7 @@ const Computer = ({
       }, 14000)
       setTimeout(() => {
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/crash_1.mp3",
         )
         setSubtitle("우주선이 소행성과 충돌하였습니다.")
@@ -77,7 +78,7 @@ const Computer = ({
       }, 17000)
       setTimeout(() => {
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/crash_2.mp3",
         )
         setSubtitle("충돌 과정에서 중력 유지장치가 고장났습니다.")
@@ -85,7 +86,7 @@ const Computer = ({
       }, 20000)
       setTimeout(() => {
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/crash_3.mp3",
         )
         timePenalty()
@@ -101,7 +102,7 @@ const Computer = ({
       if (onAir) return
       setOnAir(true)
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL +
+        IMAGE_URL.RESOURCE +
           "/dubbing/space/sequence/no_time_to_game.mp3",
       )
       audio.play()

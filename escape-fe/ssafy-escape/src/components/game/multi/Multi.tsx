@@ -3,6 +3,9 @@
 import Container from "@/components/common/Container"
 import { useRouter } from "next/navigation"
 import * as S from "@/app/@modal/main/multi/mulitStyle"
+
+import IMAGE_URL from "@/constants/host"
+
 const Multi = () => {
   const router = useRouter()
 
@@ -24,7 +27,7 @@ const Multi = () => {
           }}
         >
           <S.MultiImage
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/createroom.png"}
+            src={IMAGE_URL.RESOURCE + "/image/createroom.png"}
             alt="create the room"
             width={200}
             height={200}
@@ -37,7 +40,7 @@ const Multi = () => {
           }}
         >
           <S.MultiImage
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/enter.png"}
+            src={IMAGE_URL.RESOURCE + "/image/enter.png"}
             alt="enter the room"
             width={200}
             height={200}
@@ -50,7 +53,7 @@ const Multi = () => {
           }}
         >
           <S.MultiImage
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/random.png"}
+            src={IMAGE_URL.RESOURCE + "/image/random.png"}
             alt="random matching"
             width={200}
             height={200}

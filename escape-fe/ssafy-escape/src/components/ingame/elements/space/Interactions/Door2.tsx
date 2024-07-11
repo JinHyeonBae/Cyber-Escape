@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei"
 import { AnimationMixer } from "three"
 import DoorBox from "../../common/DoorBox"
 import * as THREE from "three"
+import IMAGE_URL from "@/constants/host"
 
 const Door2 = ({
   onAir,
@@ -13,8 +14,8 @@ const Door2 = ({
   setInteractNum,
 }: any) => {
   const { scene } = useGLTF(
-    // process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door4.glb",
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door_02.glb",
+    // IMAGE_URL.RESOURCE + "/glb/door4.glb",
+    IMAGE_URL.RESOURCE + "/glb/door_02.glb",
     true,
   )
   const doorRef = useRef()
@@ -31,7 +32,7 @@ const Door2 = ({
     setOnAir(true)
     // 유머 방송
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/already_escaped.mp3",
     )
     audio.play()

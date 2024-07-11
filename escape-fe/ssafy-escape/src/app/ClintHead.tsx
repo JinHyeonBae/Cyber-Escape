@@ -1,13 +1,14 @@
 "use client"
 
 import Head from "next/head"
+import IMAGE_URL from "@/constants/host"
 
 const ClientHead = () => {
   return (
     <Head>
       <link
         rel="icon"
-        href={process.env.NEXT_PUBLIC_IMAGE_URL + "/favicon.ico"}
+        href={IMAGE_URL.RESOURCE + "/favicon.ico"}
       />
     </Head>
   )

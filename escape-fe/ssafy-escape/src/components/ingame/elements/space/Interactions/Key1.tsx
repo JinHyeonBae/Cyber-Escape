@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useGLTF } from "@react-three/drei"
 import { Mesh, MeshStandardMaterial } from "three"
+import IMAGE_URL from "@/constants/host"
 
 // interface KeyProps {
 //   onClick: any
@@ -15,7 +16,7 @@ const Key1 = ({
   setSubtitle,
   setInteractNum,
 }: any) => {
-  const { scene } = useGLTF(process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/key.glb")
+  const { scene } = useGLTF(IMAGE_URL.RESOURCE + "/glb/key.glb")
 
   const possibleLocations = [
     [-54, 1.6, -131],
@@ -38,7 +39,7 @@ const Key1 = ({
     setSequences(updatedSequence)
     setInteractNum(1)
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/key1_find.mp3",
     )
     audio.play()

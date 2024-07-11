@@ -6,6 +6,7 @@ import { styled } from "styled-components"
 import { MainColor } from "@/styles/palette"
 import useIngameThemeStore from "@/stores/IngameTheme"
 import { Paytone_One } from "next/font/google"
+import IMAGE_URL from "@/constants/host"
 
 const paytoneOne = Paytone_One({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ const QuickStart = () => {
           }}
         >
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/single.png"}
+            src={IMAGE_URL.RESOURCE + "/image/single.png"}
             alt=""
             width={250}
             height={250}
@@ -43,7 +44,7 @@ const QuickStart = () => {
           }}
         >
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/multi.png"}
+            src={IMAGE_URL.RESOURCE + "/image/multi.png"}
             alt=""
             width={250}
             height={250}

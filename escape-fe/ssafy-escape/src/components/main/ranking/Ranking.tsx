@@ -75,7 +75,7 @@ const Ranking = () => {
           <S.ThemeSubBox key={index} onClick={() => handleClick(index)}>
             <S.CustomImage
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                 `/image/${themeIdx[index]}emoticon.png`
               }
               alt={theme}

@@ -9,7 +9,7 @@ const ScrunchedPaper = ({
   solved,
 }: ClickObjectProps) => {
   const scrunchedPaper = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/scrunched_paper.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/scrunched_paper.glb",
     true,
   )
   const scrunchedPaperPosition: [number, number, number][] = [

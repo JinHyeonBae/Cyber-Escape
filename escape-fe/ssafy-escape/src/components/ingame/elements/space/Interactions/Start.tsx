@@ -2,6 +2,8 @@ import useIngameThemeStore from "@/stores/IngameTheme"
 import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 
+import IMAGE_URL from "@/constants/host"
+
 interface ContainerProps {
   opacity: number
 }
@@ -57,11 +59,11 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
 
   const dub1 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/dubbing/space/start/start_1.mp3",
+      IMAGE_URL.RESOURCE + "/dubbing/space/start/start_1.mp3",
     )
     audio.play()
     const new_audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + `/music/SpeckInTime.mp3`,
+      IMAGE_URL.RESOURCE + `/music/SpeckInTime.mp3`,
     )
     new_audio.play()
     new_audio.loop = true
@@ -75,7 +77,7 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
 
   const dub2 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/dubbing/space/start/start_2.mp3",
+      IMAGE_URL.RESOURCE + "/dubbing/space/start/start_2.mp3",
     )
     audio.play()
     setSubtitle("몸을 움직이실 수 있습니까?")
@@ -87,7 +89,7 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
 
   const dub3 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/dubbing/space/start/start_3.mp3",
+      IMAGE_URL.RESOURCE + "/dubbing/space/start/start_3.mp3",
     )
     audio.play()
     setSubtitle("좋습니다. 몸을 움직이는 데는 이상이 없으시군요.")
@@ -99,7 +101,7 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
 
   const dub4 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/dubbing/space/start/start_4.mp3",
+      IMAGE_URL.RESOURCE + "/dubbing/space/start/start_4.mp3",
     )
     audio.play()
     setSubtitle("현재 산소공급 장치가 고장나 의식을 잃은 상태셨습니다.")
@@ -114,7 +116,7 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
 
   const dub5 = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/dubbing/space/start/start_5.mp3",
+      IMAGE_URL.RESOURCE + "/dubbing/space/start/start_5.mp3",
     )
     audio.play()
     setSubtitle("최대한 빨리 우주선을 탈출하세요.")
@@ -129,7 +131,7 @@ const Start = ({ onAir, setOnAir, setSubtitle }: any) => {
     }, 9000)
     setTimeout(() => {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL +
+        IMAGE_URL.RESOURCE +
           "/dubbing/space/sequence/server_key.mp3",
       )
       audio.play()

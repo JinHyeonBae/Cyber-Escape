@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei"
 
 const Computer = ({ onClick, setInteractNum, solved }: ClickObjectProps) => {
   const computer = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/computer.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/computer.glb",
     true,
   )
   const handlePointerOver = () => {

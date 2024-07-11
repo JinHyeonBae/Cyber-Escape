@@ -6,19 +6,19 @@ interface PortraitProps {
 
 const Art = ({ twoMinLater }: PortraitProps) => {
   const art = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/art.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/art.glb",
     true,
   )
   const art2 = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/art2.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/art2.glb",
     true,
   )
   const horrorArt = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/after_art.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/after_art.glb",
     true,
   )
   const horrorArt2 = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/after_art2.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/after_art2.glb",
     true,
   )
   return (
