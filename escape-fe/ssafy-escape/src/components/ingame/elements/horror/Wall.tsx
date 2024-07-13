@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 const Wall = () => {
   const wall = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/wall.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/wall.glb",
     true,
   )
   useEffect(() => {

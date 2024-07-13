@@ -59,7 +59,7 @@ const Player = (props: any) => {
       props.trigger[2].activate === false
     ) {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/crash.mp3",
+        IMAGE_URL.RESOURCE + "/sound/crash.mp3",
       )
       audio.play()
       setGravity(false)

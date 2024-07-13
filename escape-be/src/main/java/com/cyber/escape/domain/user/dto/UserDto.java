@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.user.dto;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.cyber.escape.domain.quiz.entity.FinalAnswer;
@@ -9,6 +10,8 @@ import com.cyber.escape.global.common.util.FileUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 public class UserDto {
 
@@ -48,7 +51,7 @@ public class UserDto {
 		private String grantType;
 		private String accessToken;
 		private String refreshToken;
-		private String userUuid;
+		private UUID userUuid;
 		private String nickname;
 		private String profileUrl;
 
@@ -156,7 +159,7 @@ public class UserDto {
 			return StompResponse.builder()
 				.nickname(user.getNickname())
 				.profileUrl(user.getProfileUrl())
-				.uuid(user.getUuid())
+				.uuid(user.getUuid().toString())
 				.build();
 		}
 	}

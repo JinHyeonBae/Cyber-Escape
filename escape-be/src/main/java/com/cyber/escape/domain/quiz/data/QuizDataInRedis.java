@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Component
 @Getter
@@ -18,7 +19,7 @@ public class QuizDataInRedis {
     @NoArgsConstructor(force = true)
     @AllArgsConstructor
     public static class MapQuizWithClueData{
-        private String finalUuid;
+        private UUID finalUuid;
         private Integer clueIdx;
         private String clue;
         private boolean isUsedHint;

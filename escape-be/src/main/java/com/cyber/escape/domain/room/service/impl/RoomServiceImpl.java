@@ -2,6 +2,7 @@ package com.cyber.escape.domain.room.service.impl;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ListOperations;
@@ -89,7 +90,7 @@ public class RoomServiceImpl implements RoomService {
 			log.info("user2Uuid : {}", user2.getUserUuid());
 			log.info("listOperations size after matching : {}", listOperations.size(MATCHING_QUEUE_KEY));
 
-			User host = userRepository.findUserByUuid(user1.getUserUuid())
+			User host = userRepository.findUserByUuid(UUID.fromString(user1.getUserUuid()))
 				.orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND));
 			int randomIndex = (int) (Math.random() * (categories.length - 1));
 			int category = categories[randomIndex];
@@ -181,7 +182,7 @@ public class RoomServiceImpl implements RoomService {
 		if(capacity == 1) {
 			host = userUtil.getLoginUser();
 		} else {
-			host = userRepository.findUserByUuid(postRequest.getHostUuid())
+			host = userRepository.findUserByUuid(UUID.fromString(postRequest.getHostUuid()))
 				.orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND));
 		}
 
@@ -219,7 +220,7 @@ public class RoomServiceImpl implements RoomService {
 		// 이거 근데 왜 필요한거지?
 		// 방장이 나갔을 때 말고는 삭제할 일이 없는거 아닌가?
 
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, request.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(request.getRoomUuid()));
 		User findUser = userUtil.getLoginUser();
 
 		if(checkHost(findUser.getId(), findRoom.getHostId())){
@@ -235,13 +236,13 @@ public class RoomServiceImpl implements RoomService {
 		// 알림 전송 및 MongoDB에 저장
 		// 이 부분에 알림 send 메소드 넣으면 끝
 		log.info("request userUuid : {}, roomUuid : {}", request.getUserUuid(), request.getRoomUuid());
-		notificationService.send(request.getUserUuid(), request.getRoomUuid(), Notify.NotificationType.GAME, "게임 요청입니다.");
+		notificationService.send(UUID.fromString(request.getUserUuid()), UUID.fromString(request.getRoomUuid()), Notify.NotificationType.GAME, "게임 요청입니다.");
 		return "";
 	}
 
 	@Transactional
 	public RoomDto.AcceptResponse acceptInvitation(final RoomDto.Request acceptRequest) {
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, acceptRequest.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(acceptRequest.getRoomUuid()));
 
 		checkJoinRoomValidation(findRoom, "", true);
 		findRoom.setCapacity(2);
@@ -251,12 +252,12 @@ public class RoomServiceImpl implements RoomService {
 
 	@Transactional
 	public String joinRoom(final RoomDto.JoinRequest joinRequest) {
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, joinRequest.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(joinRequest.getRoomUuid()));
 
 		checkJoinRoomValidation(findRoom, joinRequest.getPassword(), false);
 		findRoom.setCapacity(2);
 
-		return findRoom.getUuid();
+		return String.valueOf(findRoom.getUuid());
 	}
 
 	private void checkJoinRoomValidation(Room findRoom, String password, Boolean isInvited) {
@@ -282,7 +283,7 @@ public class RoomServiceImpl implements RoomService {
 		// host : 방 삭제 (소켓 : 연결 끊고, 방 폭파)
 		// guest : capacity 변경 (소켓 : 연결 끊기)
 
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, request.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(request.getRoomUuid()));
 		User user = userUtil.getLoginUser();
 
 		if (checkHost(user.getId(), findRoom.getHostId())) {
@@ -302,7 +303,7 @@ public class RoomServiceImpl implements RoomService {
 	public String kickGuestFromRoom(final RoomDto.KickRequest kickRequest) {
 		// host인 경우만 강퇴 가능 -> validation check 필요
 
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, kickRequest.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(kickRequest.getRoomUuid()));
 		User host = userUtil.getLoginUser();
 
 		if (checkHost(host.getId(), findRoom.getHostId())) {
@@ -331,13 +332,13 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public UserDto.Response changeHost(final RoomDto.Request request) {
 		// host인 경우만 변경 가능 -> validation check 필요
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, request.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(request.getRoomUuid()));
 		User host = userUtil.getLoginUser();
 
 		if(checkHost(host.getId(), findRoom.getHostId())){
 			log.info("RoomServiceImpl ========== 방장입니다.");
 
-			User guest = userRepository.findUserByUuid(request.getUserUuid())
+			User guest = userRepository.findUserByUuid(UUID.fromString(request.getUserUuid()))
 				.orElseThrow(() -> new EntityNotFoundException("일치하는 사용자가 없습니다."));
 
 			findRoom.setUpdator(findRoom.getHost());
@@ -352,7 +353,7 @@ public class RoomServiceImpl implements RoomService {
 	@Transactional
 	@Override
 	public RoomDto.TimeResponse setStartTime(final RoomDto.TimeRequest timeRequest) {
-		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, timeRequest.getRoomUuid());
+		Room findRoom = RoomServiceUtils.findByUuid(roomRepository, UUID.fromString(timeRequest.getRoomUuid()));
 
 		findRoom.setStartedAt(timeRequest.getStartedAt());
 		findRoom.setUpdator(findRoom.getHost());

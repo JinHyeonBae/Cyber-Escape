@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 const Skull = ({ onClick, solved, setInteractNum }: ClickObjectProps) => {
   const skull = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/skull.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/skull.glb",
     true,
   )
 

@@ -2,6 +2,7 @@ package com.cyber.escape.global.common.handler;
 
 import java.security.Principal;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.context.event.EventListener;
@@ -118,6 +119,7 @@ public class RoomStompHandler {
 		RoomDto.StompResponse room = null;
 
 		log.info("handleRoomConnect === userUuid : {}, roomUuid : {}, userType : {}", userUuid, roomUuid, userType);
+
 
 		if ("host".equals(userType)) {
 			room = roomManager.createRoom(roomUuid, userUuid, headerAccessor.getSessionId());

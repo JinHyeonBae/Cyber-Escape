@@ -1,6 +1,7 @@
 package com.cyber.escape.domain.room.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
@@ -47,21 +48,21 @@ public class Room extends BaseEntity {
 	private LocalDateTime startedAt;
 
 	@ManyToOne
-	@JoinColumn(name = "thema_id", referencedColumnName = "id")
+	@JoinColumn(name = "thema_id", referencedColumnName = "uuid")
 	private Thema thema;
 
 	@Setter
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JoinColumn(name = "user_id", referencedColumnName = "uuid")
 	private User host;
 
 	@ManyToOne
-	@JoinColumn(name = "created_user", referencedColumnName = "id")
+	@JoinColumn(name = "created_user", referencedColumnName = "uuid")
 	private User creator;
 
 	@Setter
 	@ManyToOne
-	@JoinColumn(name = "updated_user", referencedColumnName = "id")
+	@JoinColumn(name = "updated_user", referencedColumnName = "uuid")
 	private User updator;
 
 	@ColumnDefault("0")
@@ -78,7 +79,7 @@ public class Room extends BaseEntity {
 		return host.getId();
 	}
 
-	public String getHostUuid() {
+	public UUID getHostUuid() {
 		return host.getUuid();
 	}
 

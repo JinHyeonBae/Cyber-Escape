@@ -3,11 +3,12 @@ import { useGLTF } from "@react-three/drei"
 import { AnimationMixer } from "three"
 import DoorBox from "../../common/DoorBox"
 import * as THREE from "three"
+import IMAGE_URL from "@/constants/host"
 
 const Door5 = ({ position, rotation, setInteractNum }: any) => {
   const { scene, animations } = useGLTF(
-    // process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door3.glb",
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door_05.glb",
+    // IMAGE_URL.RESOURCE + "/glb/door3.glb",
+    IMAGE_URL.RESOURCE + "/glb/door_05.glb",
     true,
   )
   const doorRef = useRef()
@@ -56,7 +57,7 @@ const Door5 = ({ position, rotation, setInteractNum }: any) => {
 
   const handleClick = () => {
     const new_audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/door_open.mp3",
+      IMAGE_URL.RESOURCE + "/sound/door_open.mp3",
     )
     new_audio.play()
     setIsAnimationActivated(true)

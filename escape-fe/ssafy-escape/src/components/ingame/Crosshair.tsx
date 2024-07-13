@@ -1,5 +1,6 @@
 import Image from "next/image"
 import styled from "styled-components"
+import IMAGE_URL from "@/constants/host"
 
 interface CrosshairProp {
   interactNum: number
@@ -46,8 +47,8 @@ const Crosshair2 = styled.image`
 `
 
 const Crosshair = ({ interactNum }: CrosshairProp) => {
-  const imageURL = process.env.NEXT_PUBLIC_IMAGE_URL + "/image/selection.png"
-  const imageURL_2 = process.env.NEXT_PUBLIC_IMAGE_URL + "/image/open_door.png"
+  const imageURL = IMAGE_URL.RESOURCE + "/image/selection.png"
+  const imageURL_2 = IMAGE_URL.RESOURCE + "/image/open_door.png"
 
   return interactNum === 1 ? (
     <Crosshair1></Crosshair1>

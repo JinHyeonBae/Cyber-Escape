@@ -54,7 +54,7 @@ const Start = ({ setSubtitle }: StartProps) => {
 
   const dub1 = () => {
     const new_audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + `/music/SsafyBgm2.mp3`,
+      IMAGE_URL.RESOURCE + `/music/SsafyBgm2.mp3`,
     )
     new_audio.play()
     new_audio.loop = true

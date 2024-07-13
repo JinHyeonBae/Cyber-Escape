@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.chat.repository;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import com.cyber.escape.domain.chat.dto.ChatRoomDto;
 import com.cyber.escape.domain.chat.dto.ParticipantDto;
 import com.cyber.escape.domain.chat.dto.QParticipantDto_ParticipantsDto;
@@ -9,6 +10,7 @@ import com.cyber.escape.domain.chat.entity.QChatRoom;
 import com.cyber.escape.domain.chat.entity.QParticipants;
 import com.cyber.escape.domain.user.entity.QUser;
 import com.cyber.escape.global.exception.ChatException;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -31,7 +34,7 @@ public class ParticipantsRepositoryImpl {
     }
 
     // 1대1 채팅
-    public ChatRoom findRoomInfoBelongto(String myUuid, String friendUuid) throws ChatException {
+    public ChatRoom findRoomInfoBelongto(UUID myUuid, UUID friendUuid) throws ChatException {
 
         QParticipants participants = QParticipants.participants;
         QChatRoom chatRoom = QChatRoom.chatRoom;
@@ -59,7 +62,7 @@ public class ParticipantsRepositoryImpl {
                                     .where(participants.chatRoom.id.eq(chatRoom.id)
                                             .and(participants.participant.uuid.eq(friendUuid))
                                             .and(participants.deleteFlag.eq(false)))
-                                    .exists()
+                                        .exists()
                                 ))
                         .fetchOne();
 
@@ -77,7 +80,7 @@ public class ParticipantsRepositoryImpl {
     }
 
     @Transactional
-    public void exitRoom(String roomUuid, String exitUuid){
+    public void exitRoom(UUID roomUuid, UUID exitUuid){
 
         QParticipants participants = QParticipants.participants;
         QChatRoom chatRoom = QChatRoom.chatRoom;
@@ -110,7 +113,7 @@ public class ParticipantsRepositoryImpl {
         }
     }
 
-    public List<ChatRoomDto.MyChatListDto> getMyChatList(String userUuid){
+    public List<ChatRoomDto.MyChatListDto> getMyChatList(UUID userUuid){
         QParticipants participants = QParticipants.participants;
         QChatRoom chatRoom = QChatRoom.chatRoom;
         QUser user = QUser.user;
@@ -135,7 +138,7 @@ public class ParticipantsRepositoryImpl {
                     .fetch();
             
             // chatRoom 의 uuid를 불러옴
-            String chatRoomUuid = jpaQueryFactory
+            UUID chatRoomUuid = jpaQueryFactory
                     .select(chatRoom.uuid)
                     .from(chatRoom)
                     .where(chatRoom.id.eq(chatRoomId))
@@ -145,7 +148,7 @@ public class ParticipantsRepositoryImpl {
         }).collect(Collectors.toList());
     }
 
-    public Optional<Participants> existsByUserUuidAndChatRoomUuid(String userUuid, String chatRoomUuid){
+    public Optional<Participants> existsByUserUuidAndChatRoomUuid(UUID userUuid, UUID chatRoomUuid){
 
         QParticipants participants = QParticipants.participants;
         QChatRoom chatRoom = QChatRoom.chatRoom;
@@ -153,7 +156,7 @@ public class ParticipantsRepositoryImpl {
         return Optional.ofNullable(
                 jpaQueryFactory
                 .selectFrom(participants)
-                .join(chatRoom).on(participants.chatRoom.id.eq(chatRoom.id))
+                .join(chatRoom).on(participants.chatRoom.uuid.eq(chatRoom.uuid))
                 .where(chatRoom.uuid.eq(chatRoomUuid)
                         .and(participants.participant.uuid.eq(userUuid))
                         .and(participants.deleteFlag.eq(false)))

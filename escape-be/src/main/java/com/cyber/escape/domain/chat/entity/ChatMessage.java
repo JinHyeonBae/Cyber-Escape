@@ -15,11 +15,11 @@ import lombok.Builder;
 public class ChatMessage extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name="chat_room_id", referencedColumnName = "id")
+    @JoinColumn(name="chat_room_id", referencedColumnName = "uuid")
     private ChatRoom chatRoom;
 
     @ManyToOne
-    @JoinColumn(name="sender_id", referencedColumnName = "id")
+    @JoinColumn(name="sender_id", referencedColumnName = "uuid")
     private User sender;
 
     private String content;

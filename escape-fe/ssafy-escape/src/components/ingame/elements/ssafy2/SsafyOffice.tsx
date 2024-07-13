@@ -4,7 +4,7 @@ import { Mesh } from "three"
 
 const SsafyOffice = ({ onLoaded }: RoomProps) => {
   const { scene } = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/ssafy2/office.glb",
+    IMAGE_URL.RESOURCE + "/glb/ssafy2/office.glb",
     true,
   )
 

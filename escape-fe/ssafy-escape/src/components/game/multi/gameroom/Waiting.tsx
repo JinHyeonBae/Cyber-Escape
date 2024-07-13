@@ -16,6 +16,8 @@ import CameraMoveToPosition, {
 
 import { CircularProgress } from "@mui/material"
 import styled from "styled-components"
+
+import IMAGE_URL from "@/constants/host"
 interface GameRoomProps {
   chatting: chatData[]
   ready: () => void
@@ -82,7 +84,7 @@ const Waiting = ({
                 />
                 {roomData?.hostReady ? (
                   <S.ReadyImage
-                    src={process.env.NEXT_PUBLIC_IMAGE_URL + `/image/ready.png`}
+                    src={IMAGE_URL.RESOURCE + `/image/ready.png`}
                   />
                 ) : null}
               </S.CharacterBox>
@@ -109,7 +111,7 @@ const Waiting = ({
               <S.MainContentBox>
                 <S.ThemeImage
                   src={
-                    process.env.NEXT_PUBLIC_IMAGE_URL +
+                    IMAGE_URL.RESOURCE +
                     `/image/${imgNumber}.png`
                   }
                   alt=""
@@ -136,7 +138,7 @@ const Waiting = ({
                     {roomData?.guestReady ? (
                       <S.ReadyImage
                         src={
-                          process.env.NEXT_PUBLIC_IMAGE_URL + `/image/ready.png`
+                          IMAGE_URL.RESOURCE + `/image/ready.png`
                         }
                       />
                     ) : null}

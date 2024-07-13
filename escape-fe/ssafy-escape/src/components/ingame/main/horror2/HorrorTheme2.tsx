@@ -105,7 +105,7 @@ const HorrorTheme2 = ({
     // 5분 경과 시
     const fiveMintimer = setTimeout(() => {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/lift_door_bangs.mp3",
+        IMAGE_URL.RESOURCE + "/sound/lift_door_bangs.mp3",
       )
       audio.play()
       setFiveMinLater(true)
@@ -259,7 +259,7 @@ const HorrorTheme2 = ({
           <HorrorImageBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                 `/image/ghost/ghost${index}.jpg`
               }
               alt="귀신 이미지"
@@ -324,7 +324,7 @@ const HorrorTheme2 = ({
         <MeshObjects />
         <Environment
           files={
-            process.env.NEXT_PUBLIC_IMAGE_URL + "/hdr/concrete_tunnel_02_1k.hdr"
+            IMAGE_URL.RESOURCE + "/hdr/concrete_tunnel_02_1k.hdr"
           }
           environmentIntensity={environmentIntensity}
           resolution={90}

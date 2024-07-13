@@ -1,5 +1,6 @@
 package com.cyber.escape.domain.user.util;
 
+import com.cyber.escape.domain.auth.util.UuidUtil;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -9,6 +10,8 @@ import com.cyber.escape.domain.user.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -35,7 +38,7 @@ public class UserUtil {
      * 현재 로그인 한 사용자의 UUID 가져오기
      * @return 사용자의 UUID
      */
-    public String getLoginUserUuid() {
+    public UUID getLoginUserUuid() {
         return getLoginUser().getUuid();
     }
 

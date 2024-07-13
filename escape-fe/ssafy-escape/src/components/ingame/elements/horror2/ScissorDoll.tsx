@@ -7,7 +7,7 @@ interface ScissorDollProps {
 
 const ScissorDoll = ({ fiveMinLater }: ScissorDollProps) => {
   const doll = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror2/scissor_doll.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror2/scissor_doll.glb",
     true,
   )
   useEffect(() => {

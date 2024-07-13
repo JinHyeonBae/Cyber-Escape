@@ -24,7 +24,7 @@ const PlaySound = ({ penalty, role }: PlaySoundProps) => {
     if (penalty === 1 || penalty === 3 || penalty === 5 || penalty === 7) {
       const randomIndex = Math.floor(Math.random() * soundArray.length)
       const audio = new Audio(
-        `${process.env.NEXT_PUBLIC_IMAGE_URL}/sound/${soundArray[randomIndex]}.mp3`,
+        `${IMAGE_URL.RESOURCE}/sound/${soundArray[randomIndex]}.mp3`,
       )
       audio.play()
     }

@@ -33,7 +33,7 @@ const SecondProblemModal = ({
   useEffect(() => {
     const playAudio = setTimeout(() => {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/woman_scream.mp3",
+        IMAGE_URL.RESOURCE + "/sound/woman_scream.mp3",
       )
       audio.play()
       const showImg = setTimeout(() => {
@@ -108,7 +108,7 @@ const SecondProblemModal = ({
           <HorrorImageBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                 `/image/ghost/ghost${index}.jpg`
               }
               alt="귀신 이미지"
@@ -181,7 +181,7 @@ const SecondProblemModal = ({
         </div>
         <HintIconBox onClick={handleOpenModal}>
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/hint.png"}
+            src={IMAGE_URL.RESOURCE + "/image/hint.png"}
             alt="힌트 아이콘"
             width={35}
             height={35}

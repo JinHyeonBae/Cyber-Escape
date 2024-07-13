@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ThemaRepository extends JpaRepository<Thema, Long> {
-    Optional<Thema> findByUuid(String uuid);
+    Optional<Thema> findByUuid(UUID uuid);
     Optional<Thema> findByCategory(int category);
 
     @Query(value = "SELECT * FROM thema " +

@@ -1,10 +1,11 @@
 import { useGLTF } from "@react-three/drei"
 import { useEffect } from "react"
 import { Mesh } from "three"
+import IMAGE_URL from "@/constants/host"
 
 const SsafyClassRoom = ({ onLoaded }: RoomProps) => {
   const { scene } = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/ssafy/classroom_merged.glb",
+    IMAGE_URL.RESOURCE + "/glb/ssafy/classroom_merged.glb",
     true,
   )
 

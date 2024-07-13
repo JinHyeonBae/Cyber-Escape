@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei"
 import { AnimationMixer } from "three"
 import CockpitDoorBox from "../../common/CockpitDoorBox"
 import * as THREE from "three"
+import IMAGE_URL from "@/constants/host"
 
 const Door3 = ({
   onAir,
@@ -15,8 +16,8 @@ const Door3 = ({
   setInteractNum,
 }: any) => {
   const { scene, animations } = useGLTF(
-    // process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door5.glb",
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/door_03.glb",
+    // IMAGE_URL.RESOURCE + "/glb/door5.glb",
+    IMAGE_URL.RESOURCE + "/glb/door_03.glb",
     true,
   )
   const doorRef = useRef()
@@ -25,7 +26,7 @@ const Door3 = ({
 
   const alert = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/no_authorize.mp3",
     )
     audio.play()
@@ -33,7 +34,7 @@ const Door3 = ({
 
   const findkey = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/door_key.mp3",
     )
     audio.play()
@@ -82,7 +83,7 @@ const Door3 = ({
   const handleClick = () => {
     if (sequences[0].done === true) {
       const new_audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/door_open.mp3",
+        IMAGE_URL.RESOURCE + "/sound/door_open.mp3",
       )
       new_audio.play()
       setIsAnimationActivated(true)
@@ -93,7 +94,7 @@ const Door3 = ({
       if (onAir) return
       setOnAir(true)
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL +
+        IMAGE_URL.RESOURCE +
           "/dubbing/space/sequence/no_authorize.mp3",
       )
       audio.play()

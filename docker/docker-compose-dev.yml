@@ -25,7 +25,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./volume/mysql:/var/lib/mysql
+      - ./volume/mysql/conf.d:/etc/mysql/conf.d
     env_file: ".env"
     ports:
       - "3307:3306"
@@ -41,8 +41,8 @@ services:
     env_file: ".env"
     networks:
       - backend
-    volumes:
-      - /home/ubuntu/volume/mq:/var/lib/rabbitmq
+#    volumes:
+#      - /home/ubuntu/volume/mq:/var/lib/rabbitmq
     ports:
       - "5672:5672"
       - "61613:61613"
@@ -63,8 +63,8 @@ services:
     container_name: mongo
     networks:
       - backend
-    volumes:
-      - /home/ubuntu/volume/data:/data
+#    volumes:
+#      - /home/ubuntu/volume/data:/data
     env_file: ".env"
     ports:
       - "27017:27017"

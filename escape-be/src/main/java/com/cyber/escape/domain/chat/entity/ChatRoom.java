@@ -20,7 +20,7 @@ public class ChatRoom extends BaseEntity {
     private final String title;
 
     @ManyToOne
-    @JoinColumn(name="created_user", referencedColumnName = "id")
+    @JoinColumn(name="created_user", referencedColumnName = "uuid")
     private final User user;
 
 }

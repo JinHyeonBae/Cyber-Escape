@@ -3,6 +3,7 @@ package com.cyber.escape.domain.room.dto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.querydsl.core.annotations.QueryProjection;
 
@@ -76,7 +77,7 @@ public class PagingDto {
 		private final LocalDateTime startedAt;
 		private final int category;
 		private final Long userId;
-		private final String uuid;
+		private final UUID uuid;
 		private final String nickname;
 		private final boolean hasPassword;
 
@@ -87,7 +88,7 @@ public class PagingDto {
 			final LocalDateTime startedAt,
 			final int category,
 			final Long userId,
-			final String uuid,
+			final UUID uuid,
 			final String nickname,
 			final boolean hasPassword
 		) {

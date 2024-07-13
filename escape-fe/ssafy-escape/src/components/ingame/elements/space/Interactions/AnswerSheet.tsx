@@ -31,7 +31,7 @@ const AnswerSheet = ({
         if (onAir) return
         setOnAir(true)
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/right.mp3",
         )
         new_audio.play()
@@ -45,13 +45,13 @@ const AnswerSheet = ({
         timePenalty()
 
         const new_audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL +
+          IMAGE_URL.RESOURCE +
             "/dubbing/space/sequence/wrong.mp3",
         )
         new_audio.play()
         setTimeout(() => {
           const audio = new Audio(
-            process.env.NEXT_PUBLIC_IMAGE_URL +
+            IMAGE_URL.RESOURCE +
               "/dubbing/space/sequence/discount.mp3",
           )
           audio.play()

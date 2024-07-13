@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation"
 import * as S from "@/app/@modal/main/mode/modeStyle"
 import Image from "next/image"
 import useIngameThemeStore from "@/stores/IngameTheme"
+
+import IMAGE_URL from "@/constants/host"
+
 const Mode = () => {
   const router = useRouter()
   const { setSelectedThemeType } = useIngameThemeStore()
@@ -25,7 +28,7 @@ const Mode = () => {
           }}
         >
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/single.png"}
+            src={IMAGE_URL.RESOURCE + "/image/single.png"}
             alt=""
             width={300}
             height={300}
@@ -39,7 +42,7 @@ const Mode = () => {
           }}
         >
           <Image
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/multi.png"}
+            src={IMAGE_URL.RESOURCE + "/image/multi.png"}
             alt=""
             width={300}
             height={300}

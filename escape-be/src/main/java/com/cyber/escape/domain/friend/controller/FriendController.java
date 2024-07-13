@@ -23,7 +23,6 @@ public class FriendController {
         this.friendService = friendService;
     }
 
-
     @PostMapping("/acceptance")
     public ApiResponse<String> makeFriendRelationship(@RequestBody FriendDto.FriendRelationRequest req){
         friendService.makeFriend(req);

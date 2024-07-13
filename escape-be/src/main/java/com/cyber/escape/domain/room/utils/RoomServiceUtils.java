@@ -5,6 +5,8 @@ import com.cyber.escape.domain.room.repository.RoomRepository;
 import com.cyber.escape.global.exception.ExceptionCodeSet;
 import com.cyber.escape.global.exception.RoomException;
 
+import java.util.UUID;
+
 public class RoomServiceUtils {
 
 	private RoomServiceUtils() {
@@ -15,7 +17,7 @@ public class RoomServiceUtils {
 	// POJO이므로 메모리에 올려서 사용하기 위해 static 선언
 	public static Room findByUuid(
 		final RoomRepository repository,
-		final String uuid
+		final UUID uuid
 	) {
 		// 여기서 validation check까지 수행한다.
 		return repository.findRoomByUuid(uuid)

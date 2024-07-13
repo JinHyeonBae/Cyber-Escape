@@ -16,6 +16,8 @@ import patchNicknameChange from "@/services/main/nickname/patchNicknameChange"
 import useUserStore from "@/stores/UserStore"
 import Swal from "sweetalert2"
 import patchChangeProfileImg from "@/services/user/patchChangeProfileImg"
+
+import IMAGE_URL from "@/constants/host"
 // import { CircularProgress } from "@mui/material"
 
 interface ImageProps {
@@ -149,7 +151,7 @@ const MyProfile = () => {
           <NicknameSubBox>
             <SubText>{nickname}</SubText>
             <BlackEditIcon
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/edit_black.png"}
+              src={IMAGE_URL.RESOURCE + "/image/edit_black.png"}
               alt="닉네임 수정 아이콘"
               width={25}
               height={25}
@@ -162,7 +164,7 @@ const MyProfile = () => {
       <ImageContainer>
         <ProfileImg src={profileImg} alt="내 프로필 이미지" />
         <WhiteEditIcon
-          src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/edit_white.png"}
+          src={IMAGE_URL.RESOURCE + "/image/edit_white.png"}
           alt="프로필 이미지 수정 아이콘"
           width={25}
           height={25}
@@ -182,7 +184,7 @@ const MyProfile = () => {
           <ThemeSubBox key={index} onClick={() => handleThemeClick(index)}>
             <ThemeIcon
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                 `/image/${themeIdx[index]}emoticon.png`
               }
               alt={theme}

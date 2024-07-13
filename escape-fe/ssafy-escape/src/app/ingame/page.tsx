@@ -12,6 +12,8 @@ import StartScene from "@/components/ingame/StartScene"
 import HorrorTheme2 from "@/components/ingame/main/horror2/HorrorTheme2"
 import SsafyTheme2 from "@/components/ingame/main/ssafy2/SsafyTheme2"
 import Swal from "sweetalert2"
+import IMAGE_URL from "@/constants/host"
+
 const Page = () => {
   const [isModelLoaded, setIsModelLoaded] = useState(false)
   const [isGameStart, setIsGameStart] = useState(false)
@@ -86,7 +88,7 @@ const Page = () => {
 
           <ExitGame>
             <Image
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/exitbutton.png"}
+              src={IMAGE_URL.RESOURCE + "/image/exitbutton.png"}
               alt="exit game image"
               onClick={(e) => exitGame(e)}
               width="40"

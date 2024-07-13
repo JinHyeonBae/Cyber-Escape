@@ -5,6 +5,7 @@ import { useThree } from "@react-three/fiber"
 import SecondToTime from "@/hooks/SecondToTime"
 import postUpdateRank from "@/services/main/ranking/postUpdateRank"
 import useUserStore from "@/stores/UserStore"
+import IMAGE_URL from "@/constants/host"
 
 const Cockpit = ({
   onAir,
@@ -25,10 +26,10 @@ const Cockpit = ({
   const geometry = useMemo(() => new BoxGeometry(2, 2, 2), [])
   const temp_position = [-108.51, 3.5, -71.95]
 
-  const url1 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/error1.mp4"
-  const url2 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/countdown.mp4"
-  const url3 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/countdown2.mp4"
-  const url4 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/system_operating.mp4"
+  const url1 = IMAGE_URL.RESOURCE + "/video/error1.mp4"
+  const url2 = IMAGE_URL.RESOURCE + "/video/countdown.mp4"
+  const url3 = IMAGE_URL.RESOURCE + "/video/countdown2.mp4"
+  const url4 = IMAGE_URL.RESOURCE + "/video/system_operating.mp4"
   const [currentUrl, setCurrentUrl] = useState(url1)
   const { userUuid } = useUserStore()
 
@@ -45,7 +46,7 @@ const Cockpit = ({
 
   const tryEscapeSoundEffect = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/cockpit_up.mp3",
+      IMAGE_URL.RESOURCE + "/sound/cockpit_up.mp3",
     )
     audio.play()
 
@@ -57,14 +58,14 @@ const Cockpit = ({
 
   const EscapeSoundEffect = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/cockpit_up.mp3",
+      IMAGE_URL.RESOURCE + "/sound/cockpit_up.mp3",
     )
     audio.play()
   }
 
   const tryEscape = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/try_escape.mp3",
     )
     audio.play()
@@ -72,7 +73,7 @@ const Cockpit = ({
 
   const errorOccur = () => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         "/dubbing/space/sequence/system_error.mp3",
     )
     audio.play()
@@ -80,7 +81,7 @@ const Cockpit = ({
 
   const countDownStart = (num: number) => {
     const audio = new Audio(
-      process.env.NEXT_PUBLIC_IMAGE_URL +
+      IMAGE_URL.RESOURCE +
         `/dubbing/space/sequence/countdown/${num}.mp3`,
     )
     audio.play()
@@ -118,7 +119,7 @@ const Cockpit = ({
             errorOccur()
 
             const new_audio = new Audio(
-              process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/power_down.mp3",
+              IMAGE_URL.RESOURCE + "/sound/power_down.mp3",
             )
             new_audio.play()
             setTimeout(() => {
@@ -129,7 +130,7 @@ const Cockpit = ({
             }, 4000)
             setTimeout(() => {
               const new_audio2 = new Audio(
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                   "/dubbing/space/sequence/living_key.mp3",
               )
               new_audio2.play()
@@ -182,13 +183,13 @@ const Cockpit = ({
             )
 
             const new_audio = new Audio(
-              process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/rocket_launch.mp3",
+              IMAGE_URL.RESOURCE + "/sound/rocket_launch.mp3",
             )
             new_audio.play()
 
             setTimeout(() => {
               const new_audio2 = new Audio(
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                   "/dubbing/space/sequence/congratulations.mp3",
               )
               new_audio2.play()

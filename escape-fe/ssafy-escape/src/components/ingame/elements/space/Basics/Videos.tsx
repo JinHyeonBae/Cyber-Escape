@@ -1,8 +1,9 @@
+import IMAGE_URL from "@/constants/host"
 import Video1 from "../Interactions/Video1"
 // import Video2 from "../Interactions/Video2"
 
 const Videos = ({ sequences, setSequences }: any) => {
-  const url1 = process.env.NEXT_PUBLIC_IMAGE_URL + "/video/error1.mp4"
+  const url1 = IMAGE_URL.RESOURCE + "/video/error1.mp4"
   // const url2 = "video/countdown.mp4"
 
   return (

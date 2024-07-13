@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei"
 
 const Flower = ({ onClick, setInteractNum }: ClickObjectProps) => {
   const flower = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/flower.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/flower.glb",
     true,
   )
   return (

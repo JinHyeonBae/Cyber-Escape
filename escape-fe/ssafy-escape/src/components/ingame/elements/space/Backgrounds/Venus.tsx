@@ -9,7 +9,7 @@ import {
 
 const Venus = () => {
   const venusTexture = new THREE.TextureLoader().load(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/image/suntexture.jpg",
+    IMAGE_URL.RESOURCE + "/image/suntexture.jpg",
   )
   const venusMaterial = new THREE.MeshStandardMaterial({
     map: venusTexture,

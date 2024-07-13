@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 public class QuizDto {
 
 
@@ -36,11 +38,11 @@ public class QuizDto {
     @Getter
     public static class QuizSubmissionResDto{
 
-        private String quizUuid;
+        private UUID quizUuid;
         private String content;
         private String url;
         private int difficulty;
-        public QuizSubmissionResDto(String quizUuid, String content, String url, int difficulty){
+        public QuizSubmissionResDto(UUID quizUuid, String content, String url, int difficulty){
             this.quizUuid = quizUuid;
             this.content = content;
             this.url = url;

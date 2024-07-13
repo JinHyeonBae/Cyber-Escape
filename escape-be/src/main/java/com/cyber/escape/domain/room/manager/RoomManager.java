@@ -1,6 +1,7 @@
 package com.cyber.escape.domain.room.manager;
 
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class RoomManager {
 	private final UserRepository userRepository;
 
 	public RoomDto.StompResponse createRoom(String roomUuid, String userUuid, String hostSessionId) {
-		UserDto.StompResponse host = UserDto.StompResponse.from(userRepository.findUserByUuid(userUuid)
+		UserDto.StompResponse host = UserDto.StompResponse.from(userRepository.findUserByUuid(UUID.fromString(userUuid))
 			.orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)));
 		RoomDto.StompResponse room = new RoomDto.StompResponse(hostSessionId);
 		room.setHost(host);
@@ -40,7 +41,7 @@ public class RoomManager {
 
 		if (isRoomAvailableForGuest(room)) {
 			UserDto.StompResponse guest = UserDto.StompResponse.from(
-				userRepository.findUserByUuid(userUuid)
+				userRepository.findUserByUuid(UUID.fromString(userUuid))
 				.orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)));
 
 			room.joinGuest(guestSessionId, guest);

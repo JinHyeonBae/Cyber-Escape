@@ -18,15 +18,15 @@ import java.util.List;
 public class Participants extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name="chat_room_id", referencedColumnName = "id")
+    @JoinColumn(name="chat_room_id", referencedColumnName = "uuid")
     private ChatRoom chatRoom;
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinColumn(name="user_id", referencedColumnName = "uuid")
     private User participant;
 
     @ManyToOne
-    @JoinColumn(name="updated_user", referencedColumnName = "id")
+    @JoinColumn(name="updated_user", referencedColumnName = "uuid")
     private User updatedUser;
 
     @Column(name="delete_flag")

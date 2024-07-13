@@ -35,6 +35,8 @@ import useIngameQuizStore from "@/stores/IngameQuizStore"
 import styled from "styled-components"
 import Image from "next/image"
 
+import IMAGE_URL from "@/constants/host"
+
 // const startPosition = { x: 8, y: 8, z: -2 }
 // const startTargetPosition = { x: 4, y: 3, z: -2 }
 // const lookAt = { x: -4, y: 2, z: 2 }
@@ -108,7 +110,7 @@ const HorrorTheme = ({
     } else if (penalty === 4) {
       const playAudio = setTimeout(() => {
         const audio = new Audio(
-          process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/woman_scream.mp3",
+          IMAGE_URL.RESOURCE + "/sound/woman_scream.mp3",
         )
         audio.play()
         const showImg = setTimeout(() => {
@@ -123,7 +125,7 @@ const HorrorTheme = ({
       return () => clearTimeout(playAudio)
     } else if (penalty === 6) {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/man_scream.mp3",
+        IMAGE_URL.RESOURCE + "/sound/man_scream.mp3",
       )
       audio.play()
       setShowBloodText(true)
@@ -145,7 +147,7 @@ const HorrorTheme = ({
     // 5분 경과 시
     const fiveMintimer = setTimeout(() => {
       const audio = new Audio(
-        process.env.NEXT_PUBLIC_IMAGE_URL + "/sound/door_bang.mp3",
+        IMAGE_URL.RESOURCE + "/sound/door_bang.mp3",
       )
       audio.play()
       setFiveMinLater(true)
@@ -269,7 +271,7 @@ const HorrorTheme = ({
           <HorrorImageBox>
             <Image
               src={
-                process.env.NEXT_PUBLIC_IMAGE_URL +
+                IMAGE_URL.RESOURCE +
                 `/image/ghost/ghost${index}.jpg`
               }
               alt="귀신 이미지"

@@ -15,6 +15,9 @@ import HorrorTheme2 from "@/components/ingame/main/horror2/HorrorTheme2"
 import SsafyTheme2 from "@/components/ingame/main/ssafy2/SsafyTheme2"
 import { useRouter } from "next/navigation"
 import Swal from "sweetalert2"
+
+import IMAGE_URL from "@/constants/host"
+
 interface IngameProps {
   roomData: PubResponseData | null
   progressUpdate: () => void
@@ -130,7 +133,7 @@ const Ingame = ({
           <ExitGame>
             <Image
               onClick={(e) => exitGame(e)}
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + "/image/exitbutton.png"}
+              src={IMAGE_URL.RESOURCE + "/image/exitbutton.png"}
               alt="exit game image"
               width="40"
               height="40"

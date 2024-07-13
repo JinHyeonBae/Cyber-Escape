@@ -8,7 +8,7 @@ interface BloodProps {
 
 const Blood = ({ penalty, role }: BloodProps) => {
   const blood = useGLTF(
-    process.env.NEXT_PUBLIC_IMAGE_URL + "/glb/horror/blood.glb",
+    IMAGE_URL.RESOURCE + "/glb/horror/blood.glb",
     true,
   )
   useEffect(() => {
