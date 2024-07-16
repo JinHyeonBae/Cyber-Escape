@@ -1,10 +1,8 @@
 package com.cyber.escape.domain.chat.service;
 
-import com.cyber.escape.domain.auth.util.UuidUtil;
-import com.cyber.escape.domain.chat.repository.ParticipantsRepository;
-import com.cyber.escape.domain.chat.repository.ParticipantsRepositoryImpl;
 import com.cyber.escape.domain.chat.entity.ChatRoom;
 import com.cyber.escape.domain.chat.entity.Participants;
+import com.cyber.escape.domain.chat.repository.ParticipantsRepository;
 import com.cyber.escape.domain.user.entity.User;
 import com.cyber.escape.domain.user.repository.UserRepository;
 import com.cyber.escape.domain.user.util.UserUtil;
@@ -27,14 +25,12 @@ public class ChatRoomService {
     private final ConcurrentHashMap<String, Set<String>> roomSessionMap = new ConcurrentHashMap<>();
     private final ChatRoomRepository chatRoomRepository;
     private final ParticipantsRepository participantsRepository;
-    private final ParticipantsRepositoryImpl participantsRepositoryImpl;
     private final UserRepository userRepository;
     private final UserUtil userUtil;
 
-    public ChatRoomService(ChatRoomRepository chatRoomRepository, ParticipantsRepository participantsRepository, ParticipantsRepositoryImpl participantsRepositoryImpl, UserRepository userRepository, UserUtil userUtil) {
+    public ChatRoomService(ChatRoomRepository chatRoomRepository, ParticipantsRepository participantsRepository, UserRepository userRepository, UserUtil userUtil) {
         this.chatRoomRepository = chatRoomRepository;
         this.participantsRepository = participantsRepository;
-        this.participantsRepositoryImpl = participantsRepositoryImpl;
         this.userRepository = userRepository;
         this.userUtil = userUtil;
     }
@@ -46,7 +42,7 @@ public class ChatRoomService {
 
             //log.info("현재 들어온 user의 uuid : {}", friendUuid);
 
-            List<String> uuidList = new ArrayList<>(Arrays.asList(userUuid.toString(), chatroomInfo.getUserUuid()));
+            List<String> uuidList = new ArrayList<>(Arrays.asList(userUuid.toString(), chatroomInfo.getFriendUuid()));
 
             List<User> currentUsers = userRepository.findByUuids(uuidList).orElseThrow(
                     () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND));
@@ -56,10 +52,11 @@ public class ChatRoomService {
 
 
             // DB에서 현재 user들이 채팅방을 가지고 있는지를 찾는다.
-            ChatRoom existChatRoom = participantsRepositoryImpl.findRoomInfoBelongto(createdRoomUser.getUuid(), friendUser.getUuid());
+            ChatRoom existChatRoom = chatRoomRepository.findRoomInfoBelongto(createdRoomUser.getUuid(), friendUser.getUuid());
 
             // 채팅방이 만들어져 있으면 똑같은 걸 준다.
             if(existChatRoom != null) {
+                log.info("이미 만들어진 채팅방입니다.");
                 log.info("chatRoom 정보 {}", existChatRoom.toString());
                 return ChatRoomDto.CreateChatRoomResDto
                         .builder()
@@ -103,16 +100,16 @@ public class ChatRoomService {
         // 여기서 나가려는 유저가 진짜 채팅방에 있는 유저인지를 확인
         UUID exitUserUuid = UUID.fromString(req.getExitUserUuid());
         UUID chatRoomUuid = UUID.fromString(req.getChatRoomUuid());
-        participantsRepositoryImpl.existsByUserUuidAndChatRoomUuid(exitUserUuid, chatRoomUuid)
+        participantsRepository.existsByUserUuidAndChatRoomUuid(exitUserUuid, chatRoomUuid)
                         .orElseThrow(() -> new ChatException(ExceptionCodeSet.BAD_REQUEST));
 
-        participantsRepositoryImpl.exitRoom(exitUserUuid, exitUserUuid);
+        chatRoomRepository.exitRoom(exitUserUuid, exitUserUuid);
         return "";
     }
 
     public List<ChatRoomDto.MyChatListDto> getMyChatList(){
         UUID userUuid = userUtil.getLoginUserUuid();
-        return participantsRepositoryImpl.getMyChatList(userUuid);
+        return chatRoomRepository.getMyChatList(userUuid);
     }
 
     public void joinRoom(String roomUuid, String userNickname) {
