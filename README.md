@@ -100,7 +100,7 @@
 
 ## 🌐 System Architecture
 
-![아키텍처5-removebg-preview](https://github.com/JinHyeonBae/CyberEscape/assets/47708313/0cf6adc5-b5ce-4e2f-9264-d2a1fa8dc442)
+![a303-최종아키텍처](https://github.com/user-attachments/assets/99d50784-6d6a-481a-bac8-4a1b2a7c0025)
 
 <br>
 
